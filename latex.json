@@ -213,60 +213,6 @@
 		],
 		"description": ""
 	},
-	"Alpha": {
-		"prefix": [
-			"\\a"
-		],
-		"body": [
-			"\\alpha"
-		],
-		"description": ""
-	},
-	"Beta": {
-		"prefix": [
-			"\\b"
-		],
-		"body": [
-			"\\beta"
-		],
-		"description": ""
-	},
-	"Epsilon": {
-		"prefix": [
-			"\\e"
-		],
-		"body": [
-			"\\varepsilon"
-		],
-		"description": ""
-	},
-	"Delta": {
-		"prefix": [
-			"\\d"
-		],
-		"body": [
-			"\\delta"
-		],
-		"description": ""
-	},
-	"Partial": {
-		"prefix": [
-			"\\p"
-		],
-		"body": [
-			"\\partial"
-		],
-		"description": ""
-	},
-	"Phi": {
-		"prefix": [
-			"\\f"
-		],
-		"body": [
-			"\\varphi"
-		],
-		"description": ""
-	},
 	"Big phi": {
 		"prefix": [
 			"\\F"
