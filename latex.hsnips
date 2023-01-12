@@ -1,0 +1,140 @@
+global
+const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
+endglobal
+
+snippet `\\\)[ ,.]$` "Change language when end math" A
+``
+    langChanger.stdin.write("1\n")
+    rv = m[0]
+``
+endsnippet
+
+snippet `\\\(\s$` "Change language when inside math" A
+``
+    langChanger.stdin.write("1\n")
+    rv = "\\( "
+``
+endsnippet
+
+snippet \= "Math start" A
+\($1\)$0
+endsnippet
+
+snippet `(\S+)\\=` "Wrap math" A
+\( ``rv = m[1]``\)
+endsnippet
+
+snippet \img "Start drawing image"
+``    
+    require("child_process").exec("mspaint");
+``\includegraphics[width=0.5\linewidth]{
+endsnippet
+
+snippet `([^\/]+)\/` "Fraction" A
+``
+    let str = m[1];
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
+    }
+    i++;
+    rv = str.slice(0, i) + "\\dfrac{ " + str.slice(i) + "}";
+``{ $1}$0
+endsnippet
+
+snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
+``
+    let str = m[0];
+    let res = str;
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let brackets_count = 0;
+    let first_in_brackets = "";
+    let second_in_brackets = "";
+    let end_of_second_index = lastIndex;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if (depth < 0) break;
+        if (depth == 0 && str[i] == '{') {
+            brackets_count++;
+            if (brackets_count == 1) {
+                first_in_brackets = str.slice(i + 1, lastIndex - 1);
+                end_of_second_index = i - 1;
+            }
+            if (brackets_count == 2) second_in_brackets = str.slice(i + 1, end_of_second_index);
+        }
+        if (brackets_count == 2) {
+            if (str.slice(i - 6, i) == "\\dfrac") res = str.slice(0, i - 6) + "\\frac{" + second_in_brackets + "}{" + first_in_brackets + "}";
+            break;
+        }
+    }
+    rv = res;
+``$1
+endsnippet
+
+snippet \- "Brackets" A
+\left( $1\right)$0
+endsnippet
+
+snippet \{ "Curly brackets" A
+\left\{ $1\right\\}$0
+endsnippet
+
+snippet `\s\|$` "Abs" A
+\left| $1\right|$0
+endsnippet
+
+snippet \| "Norm" A
+\left\| $1\right\|$0
+endsnippet
+
+snippet `(\S+)\\p` "Partial" A
+\dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
+endsnippet
+
+snippet `(\S+)\\ol` "Overline" A
+\overline{``rv = m[1]``}
+endsnippet
+
+snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
+\dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
+endsnippet
+
+snippet <= "leq" A
+\leq 
+endsnippet
+
+snippet >= "geq" A
+\geq 
+endsnippet
+
+snippet != "neq" A
+\neq 
+endsnippet
+
+snippet `\s,$` "Comma with space" A
+ ,\; 
+endsnippet
+
+snippet `\s:$` "Colon with space" A
+ :\; 
+endsnippet
+
+snippet `\s\s$` "Space" A
+ \; 
+endsnippet
+
+snippet `(\S+)\^` A
+``rv = m[1]``^{ $1}$0
+endsnippet
+
+snippet `(\S+)\_` A
+``rv = m[1]``_{ $1}$0
+endsnippet
+
