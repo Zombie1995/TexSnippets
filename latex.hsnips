@@ -75,7 +75,7 @@ snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
         }
     }
     rv = res;
-``$1
+``
 endsnippet
 
 snippet \- "Brackets" A
