@@ -419,5 +419,14 @@
 			"\\bigcap\\limits_{ $1}^{ $2} $0"
 		],
 		"description": ""
+	},
+	"Backslash": {
+		"prefix": [
+			"\\bs"
+		],
+		"body": [
+			"\\backslash "
+		],
+		"description": ""
 	}
 }
