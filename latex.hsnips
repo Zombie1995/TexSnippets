@@ -16,10 +16,10 @@ snippet `\\\(\s$` "Change language when inside math" A
 ``
 endsnippet
 
-snippet `(.)]` "Change ] to \ because always missclick" A
-``
+snippet `](.)` "Change ] to \ because always missclick" A
+\``
     rv = m[1]
-``\
+``
 endsnippet
 
 snippet \= "Math start" A
