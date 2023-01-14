@@ -84,20 +84,28 @@ snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
 ``
 endsnippet
 
-snippet \- "Brackets" A
-\left( $1\right)$0
+snippet `(.)\\-` "Brackets" A
+``
+    rv = m[1]
+``\left( $1\right)$0
 endsnippet
 
-snippet \{ "Curly brackets" A
-\left\{ $1\right\\}$0
+snippet `(.)\\{` "Curly brackets" A
+``
+    rv = m[1]
+``\left\{ $1\right\\}$0
 endsnippet
 
-snippet `\s\|$` "Abs" A
-\left| $1\right|$0
+snippet `(.)\\\|` "Norm" A
+``
+    rv = m[1]
+``\left\| $1\right\|$0
 endsnippet
 
-snippet \| "Norm" A
-\left\| $1\right\|$0
+snippet `(.)\|` "Abs" A
+``
+    rv = m[1]
+``\left| $1\right|$0
 endsnippet
 
 snippet `(\S+)\\p` "Partial" A
