@@ -16,6 +16,12 @@ snippet `\\\(\s$` "Change language when inside math" A
 ``
 endsnippet
 
+snippet `(.)]` "Change ] to \ because always missclick" A
+``
+    rv = m[1]
+``\
+endsnippet
+
 snippet \= "Math start" A
 \($1\)$0
 endsnippet
