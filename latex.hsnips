@@ -2,6 +2,12 @@ global
 const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
 endglobal
 
+snippet `(.*)]` "Change ] to \ because always missclick" A
+``
+    rv = m[1]
+``\
+endsnippet
+
 snippet `\\\)[ ,.]$` "Change language when end math" A
 ``
     langChanger.stdin.write("1\n")
@@ -13,12 +19,6 @@ snippet `\\\(\s$` "Change language when inside math" A
 ``
     langChanger.stdin.write("1\n")
     rv = "\\( "
-``
-endsnippet
-
-snippet `](.)` "Change ] to \ because always missclick" A
-\``
-    rv = m[1]
 ``
 endsnippet
 
