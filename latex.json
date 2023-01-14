@@ -213,15 +213,6 @@
 		],
 		"description": ""
 	},
-	"Big phi": {
-		"prefix": [
-			"\\F"
-		],
-		"body": [
-			"\\varPhi"
-		],
-		"description": ""
-	},
 	"Right arrow": {
 		"prefix": [
 			"\\arrow"
