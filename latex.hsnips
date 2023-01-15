@@ -102,7 +102,9 @@ endsnippet
 
 context math(context)
 snippet `(.)\\\|` "Norm" A
-\left\| $1\right\|$0
+``
+    rv = m[1]
+``\left\| $1\right\|$0
 endsnippet
 
 context math(context)
