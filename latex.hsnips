@@ -94,14 +94,14 @@ snippet `(.)ml` "Brackets (start with left)" A
 endsnippet
 
 context math(context)
-snippet `(.)\\{` "Curly brackets" A
+snippet `(.)}` "Curly brackets" A
 ``
     rv = m[1]
 ``\left\{ $1\right\\}$0
 endsnippet
 
 context math(context)
-snippet `(.)\\\|` "Norm" A
+snippet `(.)\]` "Norm" A
 ``
     rv = m[1]
 ``\left\| $1\right\|$0
