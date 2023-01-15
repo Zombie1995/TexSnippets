@@ -121,11 +121,6 @@ snippet `(.)\|` "Abs" A
 endsnippet
 
 context math(context)
-snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
-\dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
-endsnippet
-
-context math(context)
 snippet <= "leq" A
 \leq 
 endsnippet
@@ -333,6 +328,29 @@ endsnippet
 
 # Partial need to be in the end
 context math(context)
-snippet `([^\\\s]+)p` "Partial" A
-\dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
+snippet `(.*[^\\\s])p` "Partial" A
+``
+    let str = m[1];
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
+    }
+    i++;
+    let over = str.slice(i);
+    if (over.slice(0, 1) == "{" 
+    && over.slice(-1) == "}" 
+    && depth == 0) {
+        over = over.slice(1,over.length - 1);    
+    }
+    rv = str.slice(0, i) + "\\dfrac{ \\partial " + over + "}";
+``{ \partial $1}$0
+endsnippet
+
+context math(context)
+snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
+\dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
 endsnippet
