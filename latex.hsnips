@@ -2,12 +2,6 @@ global
 const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
 endglobal
 
-snippet `(.*)]` "Change ] to \ because always missclick" A
-``
-    rv = m[1]
-``\
-endsnippet
-
 snippet `\\\)[ ,.]$` "Change language when end math" A
 ``
     langChanger.stdin.write("1\n")
@@ -22,15 +16,19 @@ snippet `\\\(\s$` "Change language when inside math" A
 ``
 endsnippet
 
-snippet \= "Math start" A
+# snippet \= "Math start" A
+# snippet mm "Math start" A
+snippet ьь "Math start" A
 \($1\)$0
 endsnippet
 
-snippet `(\S+)\\=` "Wrap math" A
+# snippet `(\S+)\\=` "Wrap math" A
+snippet `(\S+)m` "Wrap math"
 \( ``rv = m[1]``\)
 endsnippet
 
-snippet \img "Start drawing image"
+# snippet \img "Start drawing image"
+snippet img "Start drawing image"
 ``    
     require("child_process").exec("mspaint");
 ``\includegraphics[width=0.5\linewidth]{
@@ -84,10 +82,13 @@ snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
 ``
 endsnippet
 
-snippet `(.)\\-` "Brackets" A
-``
-    rv = m[1]
-``\left( $1\right)$0
+# snippet `(.)\\-` "Brackets" A
+# ``
+#     rv = m[1]
+# ``\left( $1\right)$0
+# endsnippet
+snippet mb "Brackets" A
+\left( $1\right)$0
 endsnippet
 
 snippet `(.)\\{` "Curly brackets" A
@@ -96,23 +97,29 @@ snippet `(.)\\{` "Curly brackets" A
 ``\left\{ $1\right\\}$0
 endsnippet
 
-snippet `(.)\\\|` "Norm" A
-``
-    rv = m[1]
-``\left\| $1\right\|$0
+# snippet `(.)\\\|` "Norm" A
+# ``
+#     rv = m[1]
+# ``\left\| $1\right\|$0
+# endsnippet
+snippet m| "Norm" A
+\left\| $1\right\|$0
 endsnippet
 
-snippet `(.)\|` "Abs" A
+# snippet `(.)\|` "Abs" A
+snippet `(.)\|` "Abs"
 ``
     rv = m[1]
 ``\left| $1\right|$0
 endsnippet
 
-snippet `(\S+)\\p` "Partial" A
+# snippet `(\S+)\\p` "Partial" A
+snippet `(\S+)p` "Partial"
 \dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
 endsnippet
 
-snippet `(\S+)\\ol` "Overline" A
+# snippet `(\S+)\\ol` "Overline" A
+snippet `(\S+)ol` "Overline"
 \overline{``rv = m[1]``}
 endsnippet
 
@@ -144,11 +151,10 @@ snippet `\s\s$` "Space" A
  \; 
 endsnippet
 
-snippet `(\S+)\^` A
+snippet `(\S+)\^` "High index" A
 ``rv = m[1]``^{ $1}$0
 endsnippet
 
-snippet `(\S+)\_` A
+snippet `(\S+)\_` "Low index" A
 ``rv = m[1]``_{ $1}$0
 endsnippet
-
