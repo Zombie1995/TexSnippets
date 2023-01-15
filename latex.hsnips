@@ -115,11 +115,6 @@ snippet `(.)\|` "Abs" A
 endsnippet
 
 context math(context)
-snippet `(\S+)p` "Partial" A
-\dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
-endsnippet
-
-context math(context)
 snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
 \dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
 endsnippet
@@ -328,4 +323,10 @@ endsnippet
 context math(context)
 snippet bs "Backslash" A
 \backslash  
+endsnippet
+
+# Partial need to be in the end
+context math(context)
+snippet `(\S+)p` "Partial" A
+\dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
 endsnippet
