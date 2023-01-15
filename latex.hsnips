@@ -201,6 +201,11 @@ snippet `in ` "In" A
 endsnippet
 
 context math(context)
+snippet to "To" A
+\to 
+endsnippet
+
+context math(context)
 snippet ra "Right arrow" A
 \longrightarrow 
 endsnippet
