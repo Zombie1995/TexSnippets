@@ -108,14 +108,14 @@ snippet `(.)\\\|` "Norm" A
 endsnippet
 
 context math(context)
-snippet `(.)\|` "Abs"
+snippet `(.)\|` "Abs" A
 ``
     rv = m[1]
 ``\left| $1\right|$0
 endsnippet
 
 context math(context)
-snippet `(\S+)p` "Partial"
+snippet `(\S+)p` "Partial" A
 \dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
 endsnippet
 
