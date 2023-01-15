@@ -333,6 +333,6 @@ endsnippet
 
 # Partial need to be in the end
 context math(context)
-snippet `(\S+)p` "Partial" A
+snippet `([^\\\s]+)p` "Partial" A
 \dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
 endsnippet
