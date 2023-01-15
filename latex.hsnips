@@ -23,7 +23,7 @@ endsnippet
 
 # snippet mk "Math start" A
 snippet ьл "Math start" A
-\($1\)$2
+\($1\)$0
 endsnippet
 
 # TAB SNIPPETS
