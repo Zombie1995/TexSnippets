@@ -87,6 +87,33 @@
 		],
 		"description": "Generates a simple LaTeX template"
 	},
+	"Section": {
+		"prefix": [
+			"сек"
+		],
+		"body": [
+			"\\section*{$1}$0"
+		],
+		"description": ""
+	},
+	"Subsection": {
+		"prefix": [
+			"ссек"
+		],
+		"body": [
+			"\\subsection*{$1}$0"
+		],
+		"description": ""
+	},
+	"Subsubsection": {
+		"prefix": [
+			"сссек"
+		],
+		"body": [
+			"\\subsubsection*{$1}$0"
+		],
+		"description": ""
+	},
 	"Equation": {
 		"prefix": [
 			"\\"
@@ -98,8 +125,7 @@
 	},
 	"New line": {
 		"prefix": [
-			"nl",
-			"\\\\",
+			"\\\\"
 		],
 		"body": [
 			"\\\\\\\n"
@@ -108,6 +134,7 @@
 	},
 	"Paragraph": {
 		"prefix": [
+			"пар",
 			"par",
 			"\\par"
 		],
@@ -118,6 +145,7 @@
 	},
 	"Definition": {
 		"prefix": [
+			"опр",
 			"def",
 			"\\def"
 		],
@@ -128,6 +156,7 @@
 	},
 	"NB": {
 		"prefix": [
+			"нб",
 			"nb",
 			"\\nb"
 		],
@@ -138,6 +167,7 @@
 	},
 	"Theorem": {
 		"prefix": [
+			"теор",
 			"theorem",
 			"\\theorem"
 		],
@@ -148,6 +178,7 @@
 	},
 	"Lemma": {
 		"prefix": [
+			"лемм",
 			"lemma",
 			"\\lemma"
 		],
@@ -158,6 +189,7 @@
 	},
 	"Proof": {
 		"prefix": [
+			"док",
 			"proof",
 			"\\proof"
 		],
@@ -168,6 +200,7 @@
 	},
 	"Example": {
 		"prefix": [
+			"пример",
 			"example",
 			"\\example"
 		],
@@ -178,7 +211,6 @@
 	},
 	"Overline": {
 		"prefix": [
-			"ol",
 			"\\ol"
 		],
 		"body": [
@@ -188,7 +220,6 @@
 	},
 	"Underline": {
 		"prefix": [
-			"ul",
 			"\\ul"
 		],
 		"body": [
@@ -198,7 +229,6 @@
 	},
 	"Overset": {
 		"prefix": [
-			"os",
 			"\\os"
 		],
 		"body": [
@@ -208,7 +238,6 @@
 	},
 	"Underset": {
 		"prefix": [
-			"us",
 			"\\us"
 		],
 		"body": [
@@ -218,7 +247,6 @@
 	},
 	"Underset with line": {
 		"prefix": [
-			"usl",
 			"\\usl"
 		],
 		"body": [
@@ -228,7 +256,6 @@
 	},
 	"Right arrow": {
 		"prefix": [
-			"arrow",
 			"\\arrow"
 		],
 		"body": [
@@ -238,7 +265,6 @@
 	},
 	"Left arrow": {
 		"prefix": [
-			"larrow",
 			"\\larrow"
 		],
 		"body": [
@@ -248,7 +274,6 @@
 	},
 	"Left right arrow": {
 		"prefix": [
-			"lrarrow",
 			"\\lrarrow"
 		],
 		"body": [
@@ -258,8 +283,7 @@
 	},
 	"Right implies": {
 		"prefix": [
-			"impl",
-			"\\impl"
+			"\\ri"
 		],
 		"body": [
 			"\\Longrightarrow "
@@ -268,8 +292,7 @@
 	},
 	"Left implies": {
 		"prefix": [
-			"limpl",
-			"\\limpl"
+			"\\li"
 		],
 		"body": [
 			"\\Longleftarrow "
@@ -278,8 +301,7 @@
 	},
 	"Left right implies": {
 		"prefix": [
-			"lrimpl",
-			"\\lrimpl"
+			"\\lri"
 		],
 		"body": [
 			"\\Longleftrightarrow "
@@ -288,7 +310,6 @@
 	},
 	"Fraction": {
 		"prefix": [
-			"frac",
 			"\\frac"
 		],
 		"body": [
@@ -298,7 +319,6 @@
 	},
 	"Let": {
 		"prefix": [
-			"le",
 			"\\le"
 		],
 		"body": [
@@ -308,7 +328,6 @@
 	},
 	"Forall": {
 		"prefix": [
-			"fa",
 			"\\fa"
 		],
 		"body": [
@@ -318,7 +337,6 @@
 	},
 	"Exists": {
 		"prefix": [
-			"ex",
 			"\\ex"
 		],
 		"body": [
@@ -338,8 +356,7 @@
 	},
 	"Subset": {
 		"prefix": [
-			"sub",
-			"\\sub"
+			"\\sb"
 		],
 		"body": [
 			"\\subset "
@@ -348,26 +365,15 @@
 	},
 	"Supset": {
 		"prefix": [
-			"sup",
-			"\\sup"
+			"\\sp"
 		],
 		"body": [
 			"\\supset "
 		],
 		"description": ""
 	},
-	"In": {
-		"prefix": [
-			"in"
-		],
-		"body": [
-			"\\in "
-		],
-		"description": ""
-	},
 	"Sum": {
 		"prefix": [
-			"sum",
 			"\\sum"
 		],
 		"body": [
@@ -377,7 +383,6 @@
 	},
 	"Integral": {
 		"prefix": [
-			"int",
 			"\\int"
 		],
 		"body": [
@@ -387,7 +392,6 @@
 	},
 	"Contour integral": {
 		"prefix": [
-			"oint",
 			"\\oint"
 		],
 		"body": [
@@ -397,7 +401,6 @@
 	},
 	"Double integral": {
 		"prefix": [
-			"iint",
 			"\\iint"
 		],
 		"body": [
@@ -407,7 +410,6 @@
 	},
 	"Limit": {
 		"prefix": [
-			"lim",
 			"\\lim"
 		],
 		"body": [
@@ -417,7 +419,6 @@
 	},
 	"Max": {
 		"prefix": [
-			"max",
 			"\\max"
 		],
 		"body": [
@@ -427,7 +428,6 @@
 	},
 	"Min": {
 		"prefix": [
-			"min",
 			"\\min"
 		],
 		"body": [
@@ -437,8 +437,7 @@
 	},
 	"Big cup": {
 		"prefix": [
-			"bcup",
-			"\\bcup"
+			"\\bu"
 		],
 		"body": [
 			"\\bigcup\\limits_{ $1}^{ $2} $0"
@@ -447,8 +446,7 @@
 	},
 	"Big cap": {
 		"prefix": [
-			"bcap",
-			"\\bcap"
+			"\\ba"
 		],
 		"body": [
 			"\\bigcap\\limits_{ $1}^{ $2} $0"
@@ -457,7 +455,6 @@
 	},
 	"Backslash": {
 		"prefix": [
-			"bs",
 			"\\bs"
 		],
 		"body": [

@@ -1,13 +1,11 @@
 global
 const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
+function math(context) {
+    return context.scopes.some(s => s.startsWith("meta.math"));
+}
 endglobal
 
-snippet `\\\)[ ,.]$` "Change language when end math" A
-``
-    langChanger.stdin.write("1\n")
-    rv = m[0]
-``
-endsnippet
+# AUTO SNIPPETS
 
 snippet `\\\(\s$` "Change language when inside math" A
 ``
@@ -16,24 +14,29 @@ snippet `\\\(\s$` "Change language when inside math" A
 ``
 endsnippet
 
-# snippet \= "Math start" A
-# snippet mm "Math start" A
-snippet ьь "Math start" A
-\($1\)$0
+snippet `\\\)[ ,.]$` "Change language when end math" A
+``
+    langChanger.stdin.write("1\n")
+    rv = m[0]
+``
 endsnippet
 
-# snippet `(\S+)\\=` "Wrap math" A
-snippet `(\S+)m` "Wrap math"
-\( ``rv = m[1]``\)
+# snippet mk "Math start" A
+snippet ьл "Math start" A
+\($1\)$2
 endsnippet
 
-# snippet \img "Start drawing image"
+# TAB SNIPPETS
+
 snippet img "Start drawing image"
 ``    
     require("child_process").exec("mspaint");
 ``\includegraphics[width=0.5\linewidth]{
 endsnippet
 
+# SNIPPETS ENABLED IN MATH MODE
+
+context math(context)
 snippet `([^\/]+)\/` "Fraction" A
 ``
     let str = m[1];
@@ -50,6 +53,7 @@ snippet `([^\/]+)\/` "Fraction" A
 ``{ $1}$0
 endsnippet
 
+context math(context)
 snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
 ``
     let str = m[0];
@@ -82,79 +86,239 @@ snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
 ``
 endsnippet
 
-# snippet `(.)\\-` "Brackets" A
-# ``
-#     rv = m[1]
-# ``\left( $1\right)$0
-# endsnippet
-snippet mb "Brackets" A
-\left( $1\right)$0
+context math(context)
+snippet `(.)ml` "Brackets (start with left)" A
+``
+    rv = m[1]
+``\left( $1\right)$0
 endsnippet
 
+context math(context)
 snippet `(.)\\{` "Curly brackets" A
 ``
     rv = m[1]
 ``\left\{ $1\right\\}$0
 endsnippet
 
-# snippet `(.)\\\|` "Norm" A
-# ``
-#     rv = m[1]
-# ``\left\| $1\right\|$0
-# endsnippet
-snippet m| "Norm" A
+context math(context)
+snippet `(.)\\\|` "Norm" A
 \left\| $1\right\|$0
 endsnippet
 
-# snippet `(.)\|` "Abs" A
+context math(context)
 snippet `(.)\|` "Abs"
 ``
     rv = m[1]
 ``\left| $1\right|$0
 endsnippet
 
-# snippet `(\S+)\\p` "Partial" A
+context math(context)
 snippet `(\S+)p` "Partial"
 \dfrac{ \partial ``rv = m[1]``}{ \partial $1}$0
 endsnippet
 
-# snippet `(\S+)\\ol` "Overline" A
-snippet `(\S+)ol` "Overline"
-\overline{``rv = m[1]``}
-endsnippet
-
+context math(context)
 snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
 \dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
 endsnippet
 
+context math(context)
 snippet <= "leq" A
 \leq 
 endsnippet
 
+context math(context)
 snippet >= "geq" A
 \geq 
 endsnippet
 
+context math(context)
 snippet != "neq" A
 \neq 
 endsnippet
 
+context math(context)
 snippet `\s,$` "Comma with space" A
  ,\; 
 endsnippet
 
+context math(context)
 snippet `\s:$` "Colon with space" A
  :\; 
+endsnippet
+
+context math(context)
+snippet `\\;\s\s$` "Space limit" A
+\; 
 endsnippet
 
 snippet `\s\s$` "Space" A
  \; 
 endsnippet
 
+context math(context)
 snippet `(\S+)\^` "High index" A
 ``rv = m[1]``^{ $1}$0
 endsnippet
 
+context math(context)
 snippet `(\S+)\_` "Low index" A
 ``rv = m[1]``_{ $1}$0
+endsnippet
+
+context math(context)
+snippet `(\S+)ol` "Overline" A
+\overline{``rv = m[1]``}
+endsnippet
+
+context math(context)
+snippet `(\S+)ul` "Underline" A
+\underline{``rv = m[1]``}
+endsnippet
+
+context math(context)
+snippet `(\S+)os` "Overset" A
+\overset{ $1}{``rv = m[1]``}$0
+endsnippet
+
+context math(context)
+snippet `(\S+)us` "Underset" A
+\underset{ $1}{``rv = m[1]``}$0
+endsnippet
+
+context math(context)
+snippet nl "New line" A
+``
+    rv = "\\\\\\\n"
+``
+endsnippet
+
+context math(context)
+snippet `in ` "In" A
+\in 
+endsnippet
+
+context math(context)
+snippet ra "Right arrow" A
+\longrightarrow 
+endsnippet
+
+context math(context)
+snippet la "Left arrow" A
+\longrightarrow 
+endsnippet
+
+context math(context)
+snippet lra "Left right arrow" A
+\longleftrightarrow 
+endsnippet
+
+context math(context)
+snippet ri "Right implies" A
+\Longrightarrow 
+endsnippet
+
+context math(context)
+snippet li "Left implies" A
+\Longleftarrow 
+endsnippet
+
+context math(context)
+snippet lri "Left right implies" A
+\Longleftrightarrow 
+endsnippet
+
+context math(context)
+snippet le "Let" A
+\sqsupset \; 
+endsnippet
+
+context math(context)
+snippet fa "Forall" A
+\forall \\; 
+endsnippet
+
+context math(context)
+snippet ex "Exists" A
+\exists \; 
+endsnippet
+
+context math(context)
+snippet lo "Look" A
+\measuredangle \; 
+endsnippet
+
+context math(context)
+snippet sb "Subset" A
+\subset 
+endsnippet
+
+context math(context)
+snippet sp "Supset" A
+\supset 
+endsnippet
+
+context math(context)
+snippet sp "Supset" A
+\supset 
+endsnippet
+
+context math(context)
+snippet sum "Sum" A
+\sum\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet int "Integral" A
+\int\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet oint "Contour integral" A
+\oint\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet iint "Double integral" A
+\iint\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet lm "Limit" A
+\lim\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet max "Max" A
+\max\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet min "Min" A
+\min\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet bu "Big cup" A
+\bigcup\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet ba "Big cap" A
+\bigcap\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet uu "Cup" A
+\cup 
+endsnippet
+
+context math(context)
+snippet aa "Cap" A
+\cap 
+endsnippet
+
+context math(context)
+snippet bs "Backslash" A
+\backslash  
 endsnippet
