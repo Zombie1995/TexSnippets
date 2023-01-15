@@ -159,12 +159,12 @@ snippet `\s\s$` "Space" A
 endsnippet
 
 context math(context)
-snippet `(\S+)\^` "High index" A
+snippet `(\S+)>` "High index" A
 ``rv = m[1]``^{ $1}$0
 endsnippet
 
 context math(context)
-snippet `(\S+)\_` "Low index" A
+snippet `(\S+)<` "Low index" A
 ``rv = m[1]``_{ $1}$0
 endsnippet
 
