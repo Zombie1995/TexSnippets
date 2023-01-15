@@ -37,7 +37,7 @@ endsnippet
 # SNIPPETS ENABLED IN MATH MODE
 
 context math(context)
-snippet `([^\/]+)\/` "Fraction" A
+snippet `(.+)\/` "Fraction" A
 ``
     let str = m[1];
     let lastIndex = str.length - 1;
@@ -49,7 +49,13 @@ snippet `([^\/]+)\/` "Fraction" A
         if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
     }
     i++;
-    rv = str.slice(0, i) + "\\dfrac{ " + str.slice(i) + "}";
+    let over = str.slice(i);
+    if (over.slice(0, 1) == "{" 
+    && over.slice(-1) == "}" 
+    && depth == 0) {
+        over = over.slice(1,over.length - 1);    
+    }
+    rv = str.slice(0, i) + "\\dfrac{ " + over + "}";
 ``{ $1}$0
 endsnippet
 
