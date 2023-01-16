@@ -26,6 +26,10 @@ snippet ьл "Math start" A
 \($1\)$0
 endsnippet
 
+snippet `\\\((((?!\\\().)*)\\\)t` "Math to text style" A
+\(``rv = m[1].replaceAll("\\displaystyle",'')``\)
+endsnippet
+
 # TAB SNIPPETS
 
 snippet img "Start drawing image"
@@ -263,17 +267,17 @@ endsnippet
 
 context math(context)
 snippet int "Integral" A
-\int\limits_{ $1}^{ $2} $0
+\displaystyle\int\limits_{ $1}^{ $2} $0
 endsnippet
 
 context math(context)
 snippet oint "Contour integral" A
-\oint\limits_{ $1}^{ $2} $0
+\displaystyle\oint\limits_{ $1}^{ $2} $0
 endsnippet
 
 context math(context)
 snippet iint "Double integral" A
-\iint\limits_{ $1}^{ $2} $0
+\displaystyle\iint\limits_{ $1}^{ $2} $0
 endsnippet
 
 context math(context)
