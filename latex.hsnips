@@ -182,8 +182,8 @@ snippet nl "New line" A
 endsnippet
 
 context math(context)
-snippet `in ` "In" A
-\in 
+snippet ` in ` "In" A
+ \in 
 endsnippet
 
 context math(context)
@@ -318,7 +318,7 @@ endsnippet
 
 # Partial need to be in the end
 context math(context)
-snippet `(.*[^\\\s])p` "Partial" A
+snippet `(.*[^\\\s])pp` "Partial" A
 ``
     let str = m[1];
     let lastIndex = str.length - 1;
