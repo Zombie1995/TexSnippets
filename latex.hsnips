@@ -136,16 +136,6 @@ snippet != "neq" A
 endsnippet
 
 context math(context)
-snippet `\s,$` "Comma with space" A
- ,\; 
-endsnippet
-
-context math(context)
-snippet `\s:$` "Colon with space" A
- :\; 
-endsnippet
-
-context math(context)
 snippet `\\;\s\s$` "Space limit" A
 \; 
 endsnippet
@@ -155,12 +145,12 @@ snippet `\s\s$` "Space" A
 endsnippet
 
 context math(context)
-snippet `(\S+)>` "High index" A
+snippet `([^\,\.\s]+)\.` "High index" A
 ``rv = m[1]``^{ $1}$0
 endsnippet
 
 context math(context)
-snippet `(\S+)<` "Low index" A
+snippet `([^\,\.\s]+)\,` "Low index" A
 ``rv = m[1]``_{ $1}$0
 endsnippet
 
