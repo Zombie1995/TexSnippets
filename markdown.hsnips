@@ -1,0 +1,345 @@
+global
+const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
+function math(context) {
+    return context.scopes.some(s => s.includes("math"));
+}
+endglobal
+
+# AUTO SNIPPETS
+
+snippet `\$[ ,.]$` "Change language when start or end math" A
+``
+    langChanger.stdin.write("1\n")
+    rv = m[0]
+``
+endsnippet
+
+# snippet mk "Math start" A
+snippet ьл "Math start" A
+$$1$$0
+endsnippet
+
+snippet `\$(((?!\\\().)*)\$t` "Math to text style" A
+$``rv = m[1].replaceAll("\\displaystyle",'')``$
+endsnippet
+
+# TAB SNIPPETS
+
+# Don't forget to click escape to quit scope mode! Otherwise paint will be spawned everytime you're typing.
+snippet \img "Start drawing image"
+``    
+    require("child_process").exec("mspaint");
+``<img src="$1" width="$2" alt="$3">$0
+endsnippet
+
+
+# SNIPPETS ENABLED IN MATH MODE
+
+context math(context)
+snippet `(.+)\/` "Fraction" A
+``
+    let str = m[1];
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
+    }
+    i++;
+    let over = str.slice(i);
+    if (over.slice(0, 1) == "{" 
+    && over.slice(-1) == "}" 
+    && depth == 0) {
+        over = over.slice(1,over.length - 1);    
+    }
+    rv = str.slice(0, i) + "\\dfrac{ " + over + "}";
+``{ $1}$0
+endsnippet
+
+context math(context)
+snippet `\\dfrac{(.*)}{(.*)}s` "Change to simple fraction" A
+``
+    let str = m[0];
+    let res = str;
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let brackets_count = 0;
+    let first_in_brackets = "";
+    let second_in_brackets = "";
+    let end_of_second_index = lastIndex;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if (depth < 0) break;
+        if (depth == 0 && str[i] == '{') {
+            brackets_count++;
+            if (brackets_count == 1) {
+                first_in_brackets = str.slice(i + 1, lastIndex - 1);
+                end_of_second_index = i - 1;
+            }
+            if (brackets_count == 2) second_in_brackets = str.slice(i + 1, end_of_second_index);
+        }
+        if (brackets_count == 2) {
+            if (str.slice(i - 6, i) == "\\dfrac") res = str.slice(0, i - 6) + "\\frac{" + second_in_brackets + "}{" + first_in_brackets + "}";
+            break;
+        }
+    }
+    rv = res;
+``
+endsnippet
+
+context math(context)
+snippet `(.)ml` "Brackets (start with left)" A
+``
+    rv = m[1]
+``\left( $1\right)$0
+endsnippet
+
+context math(context)
+snippet `(.)}` "Curly brackets" A
+``
+    rv = m[1]
+``\left\{ $1\right\\}$0
+endsnippet
+
+context math(context)
+snippet `(.)\]` "Norm" A
+``
+    rv = m[1]
+``\left\| $1\right\|$0
+endsnippet
+
+context math(context)
+snippet `(.)\|` "Abs" A
+``
+    rv = m[1]
+``\left| $1\right|$0
+endsnippet
+
+context math(context)
+snippet <= "leq" A
+\leq 
+endsnippet
+
+context math(context)
+snippet >= "geq" A
+\geq 
+endsnippet
+
+context math(context)
+snippet != "neq" A
+\neq 
+endsnippet
+
+context math(context)
+snippet `\\;\s\s$` "Space limit" A
+\; 
+endsnippet
+
+snippet `\s\s$` "Space" A
+ \; 
+endsnippet
+
+context math(context)
+snippet `([^\,\.\s]+)\.` "High index" A
+``rv = m[1]``^{ $1}$0
+endsnippet
+
+context math(context)
+snippet `([^\,\.\s]+)\,` "Low index" A
+``rv = m[1]``_{ $1}$0
+endsnippet
+
+context math(context)
+snippet `(\S+)ol` "Overline" A
+\overline{``rv = m[1]``}
+endsnippet
+
+context math(context)
+snippet `(\S+)ul` "Underline" A
+\underline{``rv = m[1]``}
+endsnippet
+
+context math(context)
+snippet `(\S+)os` "Overset" A
+\overset{ $1}{``rv = m[1]``}$0
+endsnippet
+
+context math(context)
+snippet `(\S+)us` "Underset" A
+\underset{ $1}{``rv = m[1]``}$0
+endsnippet
+
+context math(context)
+snippet nl "New line" A
+``
+    rv = "\\\\\\\n"
+``
+endsnippet
+
+context math(context)
+snippet ` in ` "In" A
+ \in 
+endsnippet
+
+context math(context)
+snippet to "To" A
+\to 
+endsnippet
+
+context math(context)
+snippet ra "Right arrow" A
+\longrightarrow 
+endsnippet
+
+context math(context)
+snippet la "Left arrow" A
+\longrightarrow 
+endsnippet
+
+context math(context)
+snippet lra "Left right arrow" A
+\longleftrightarrow 
+endsnippet
+
+context math(context)
+snippet ri "Right implies" A
+\Longrightarrow 
+endsnippet
+
+context math(context)
+snippet li "Left implies" A
+\Longleftarrow 
+endsnippet
+
+context math(context)
+snippet lri "Left right implies" A
+\Longleftrightarrow 
+endsnippet
+
+context math(context)
+snippet le "Let" A
+\sqsupset \; 
+endsnippet
+
+context math(context)
+snippet fa "Forall" A
+\forall \\; 
+endsnippet
+
+context math(context)
+snippet ex "Exists" A
+\exists \; 
+endsnippet
+
+context math(context)
+snippet lo "Look" A
+\measuredangle \; 
+endsnippet
+
+context math(context)
+snippet sb "Subset" A
+\subset 
+endsnippet
+
+context math(context)
+snippet sp "Supset" A
+\supset 
+endsnippet
+
+context math(context)
+snippet sp "Supset" A
+\supset 
+endsnippet
+
+context math(context)
+snippet sum "Sum" A
+\sum\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet int "Integral" A
+\displaystyle\int\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet oint "Contour integral" A
+\displaystyle\oint\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet iint "Double integral" A
+\displaystyle\iint\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet lm "Limit" A
+\lim\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet max "Max" A
+\max\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet min "Min" A
+\min\limits_{ $1} $0
+endsnippet
+
+context math(context)
+snippet bu "Big cup" A
+\bigcup\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet ba "Big cap" A
+\bigcap\limits_{ $1}^{ $2} $0
+endsnippet
+
+context math(context)
+snippet uu "Cup" A
+\cup 
+endsnippet
+
+context math(context)
+snippet aa "Cap" A
+\cap 
+endsnippet
+
+context math(context)
+snippet bs "Backslash" A
+\backslash  
+endsnippet
+
+# Partial need to be in the end
+context math(context)
+snippet `(.*[^\\\s])pp` "Partial" A
+``
+    let str = m[1];
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
+    }
+    i++;
+    let over = str.slice(i);
+    if (over.slice(0, 1) == "{" 
+    && over.slice(-1) == "}" 
+    && depth == 0) {
+        over = over.slice(1,over.length - 1);    
+    }
+    rv = str.slice(0, i) + "\\dfrac{ \\partial " + over + "}";
+``{ \partial $1}$0
+endsnippet
+
+context math(context)
+snippet `\\dfrac{ \\partial (\S+)}{ \\partial (\S+)\^` "Partial with the power" A
+\dfrac{ \partial^{$1} ``rv = m[1] + "}{ \\partial " + m[2]``^{$1}
+endsnippet
