@@ -317,7 +317,37 @@ endsnippet
 
 context math(context)
 snippet bs "Backslash" A
-\backslash  
+\backslash 
+endsnippet
+
+context math(context)
+snippet rt "Root" A
+\sqrt[$1]{$2}$0
+endsnippet
+
+context math(context)
+snippet ve "Epsilon" A
+\varepsilon 
+endsnippet
+
+context math(context)
+snippet vf "Phi" A
+\varphi 
+endsnippet
+
+context math(context)
+snippet va "Alpha" A
+\alpha 
+endsnippet
+
+context math(context)
+snippet vb "Beta" A
+\beta 
+endsnippet
+
+context math(context)
+snippet vr "Rho" A
+\rho 
 endsnippet
 
 # Partial need to be in the end
