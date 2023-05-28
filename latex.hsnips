@@ -171,7 +171,7 @@ snippet `(\S+)ul` "Underline" A
 endsnippet
 
 context math(context)
-snippet `(\S+)os` "Overset" A
+snippet `((\S*)[^c\s])os` "Overset" A
 \overset{ $1}{``rv = m[1]``}$0
 endsnippet
 
