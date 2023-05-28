@@ -1,5 +1,6 @@
+# const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
 global
-const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
+const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('%+');}"]);
 function math(context) {
     return context.scopes.some(s => s.startsWith("meta.math"));
 }
