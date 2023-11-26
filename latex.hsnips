@@ -39,7 +39,7 @@ snippet img "Start drawing image"
 ``\includegraphics[width=0.5\linewidth]{
 endsnippet
 
-snippet `^\s*\\$` "Empty line"
+snippet `\\` "Empty line"
 \bigbreak
 
 endsnippet
