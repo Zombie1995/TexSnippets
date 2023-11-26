@@ -40,7 +40,8 @@ snippet img "Start drawing image"
 endsnippet
 
 snippet `\\` "Empty line"
-\bigbreak
+
+ 
 
 endsnippet
 
