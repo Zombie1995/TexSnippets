@@ -39,6 +39,11 @@ snippet img "Start drawing image"
 ``\includegraphics[width=0.5\linewidth]{
 endsnippet
 
+snippet `^\s*\\$` "Empty line"
+\bigbreak
+
+endsnippet
+
 # SNIPPETS ENABLED IN MATH MODE
 
 context math(context)
