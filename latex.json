@@ -136,6 +136,17 @@
 		],
 		"description": ""
 	},
+	"Centered equation with number": {
+		"prefix": [
+			"мат",
+			"mat",
+			"\\mat"
+		],
+		"body": [
+			"\\begin{equation}$1\n\\end{equation}$0"
+		],
+		"description": ""
+	},
 	"Paragraph": {
 		"prefix": [
 			"пар",
