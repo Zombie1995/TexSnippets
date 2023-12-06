@@ -100,6 +100,16 @@
 		],
 		"description": ""
 	},
+	"Center": {
+		"prefix": [
+			"цен"
+		],
+		"body": [
+			"\\begin{center}$1",
+			"\\end{center}$0",
+		],
+		"description": ""
+	},
 	"Subsection": {
 		"prefix": [
 			"ссек"
