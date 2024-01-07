@@ -247,22 +247,22 @@ endsnippet
 
 context math(context)
 snippet le "Let" A
-\sqsupset \; 
+\sqsupset 
 endsnippet
 
 context math(context)
 snippet fa "Forall" A
-\forall \\; 
+\forall 
 endsnippet
 
 context math(context)
 snippet ex "Exists" A
-\exists \; 
+\exists 
 endsnippet
 
 context math(context)
 snippet lo "Look" A
-\measuredangle \; 
+\measuredangle 
 endsnippet
 
 context math(context)
