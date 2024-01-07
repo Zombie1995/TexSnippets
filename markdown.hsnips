@@ -1,5 +1,6 @@
 # const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
 global
+var changeLangInMath = true;
 const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('%+');}"]);
 function math(context) {
     return context.scopes.some(s => s.includes("math"));
@@ -10,12 +11,17 @@ endglobal
 
 snippet `\$[ ,.]$` "Change language when start or end math" A
 ``
-    langChanger.stdin.write("1\n")
+    if (changeLangInMath) {
+        langChanger.stdin.write("1\n")
+    }
     rv = m[0]
 ``
 endsnippet
 
-# snippet mk "Math start" A
+snippet mk "Math start" A
+$$1$$0
+endsnippet
+
 snippet ьл "Math start" A
 $$1$$0
 endsnippet
@@ -25,6 +31,12 @@ $``rv = m[1].replaceAll("\\displaystyle",'')``$
 endsnippet
 
 # TAB SNIPPETS
+
+snippet \switchlangmath "Switch lang in math mode"
+``
+    changeLangInMath = !changeLangInMath
+``
+endsnippet
 
 # Don't forget to click escape to quit scope mode! Otherwise paint will be spawned everytime you're typing.
 snippet \img "Start drawing image"

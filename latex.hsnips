@@ -1,5 +1,6 @@
 # const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
 global
+var changeLangInMath = true;
 const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('%+');}"]);
 function math(context) {
     return context.scopes.some(s => s.startsWith("meta.math"));
@@ -10,7 +11,9 @@ endglobal
 
 snippet `\\\(\s$` "Change language when inside math" A
 ``
-    langChanger.stdin.write("1\n")
+    if (changeLangInMath) {
+        langChanger.stdin.write("1\n")
+    }
     rv = "\\( "
 ``
 endsnippet
@@ -22,7 +25,10 @@ snippet `\\\)[ ,.]$` "Change language when end math" A
 ``
 endsnippet
 
-# snippet mk "Math start" A
+snippet mk "Math start" A
+\($1\)$0
+endsnippet
+
 snippet ьл "Math start" A
 \($1\)$0
 endsnippet
@@ -32,6 +38,12 @@ snippet `\\\((((?!\\\().)*)\\\)t` "Math to text style" A
 endsnippet
 
 # TAB SNIPPETS
+
+snippet \switchlangmath "Switch lang in math mode"
+``
+    changeLangInMath = !changeLangInMath
+``
+endsnippet
 
 snippet img "Start drawing image"
 ``    
