@@ -152,6 +152,7 @@ snippet `\\;\s\s$` "Space limit" A
 \; 
 endsnippet
 
+context math(context)
 snippet `\s\s$` "Space" A
  \; 
 endsnippet
