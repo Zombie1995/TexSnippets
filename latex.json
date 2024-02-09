@@ -6,7 +6,7 @@
 		"body": [
 			"\\documentclass[12pt, a4paper]{article}",
 			"\\usepackage[T2A]{fontenc}",
-			"\\usepackage[utf8x]{inputenc}",
+			"\\usepackage[utf8]{inputenc}",
 			"\\usepackage[english, russian]{babel}",
 			"\\usepackage{amsmath}",
 			"\\usepackage{xcolor}",
