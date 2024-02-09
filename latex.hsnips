@@ -234,7 +234,7 @@ endsnippet
 
 context math(context)
 snippet nl "New line" A
- ``
+``
     rv = "\\\\\\\n"
 ``
 endsnippet
