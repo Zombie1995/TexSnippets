@@ -26,8 +26,12 @@ snippet ьл "Math start" A
 $$1$$0
 endsnippet
 
-snippet `\$(((?!\\\().)*)\$t` "Math to text style" A
-$``rv = m[1].replaceAll("\\displaystyle",'')``$
+snippet $mk "Math start" A
+$$1$$0
+endsnippet
+
+snippet $ьл "Math start" A
+$$$1$$0
 endsnippet
 
 # TAB SNIPPETS
