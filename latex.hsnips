@@ -9,34 +9,39 @@ endglobal
 
 # AUTO SNIPPETS
 
-snippet `\\\(\s$` "Change language when inside math" A
+snippet `\\\[\s$` "Change language when inside math" A
 ``
     if (changeLangInMath) {
         langChanger.stdin.write("1\n")
     }
-    rv = "\\( "
+    rv = "\\[ "
 ``
 endsnippet
 
-snippet `\\\)[ ,.]$` "Change language when end math" A
+# snippet `\\\][ ,.]$` "Change language when end math" A
+# ``
+#     if (changeLangInMath) {
+#         langChanger.stdin.write("1\n")
+#     }
+#     rv = m[0]
+# ``
+# endsnippet
+
+snippet `\\\[(.*)\\\]([ ,.])$` "Change display math to inline and change language if needed" A
 ``
     if (changeLangInMath) {
         langChanger.stdin.write("1\n")
     }
-    rv = m[0]
+    rv = "\\(" + m[1] + "\\)" + m[2];
 ``
 endsnippet
 
 snippet mk "Math start" A
-\($1\)$0
+\[$1\]$0
 endsnippet
 
 snippet ьл "Math start" A
-\($1\)$0
-endsnippet
-
-snippet `\\\((((?!\\\().)*)\\\)t` "Math to text style" A
-\(``rv = m[1].replaceAll("\\displaystyle",'')``\)
+\[$1\]$0
 endsnippet
 
 # TAB SNIPPETS
