@@ -20,7 +20,9 @@ endsnippet
 
 snippet `\\\)[ ,.]$` "Change language when end math" A
 ``
-    langChanger.stdin.write("1\n")
+    if (changeLangInMath) {
+        langChanger.stdin.write("1\n")
+    }
     rv = m[0]
 ``
 endsnippet
@@ -159,13 +161,13 @@ snippet != "neq" A
 endsnippet
 
 context math(context)
-snippet `\\;\s\s$` "Space limit" A
-\; 
+snippet `\s\s$` "Space limit" A
+ 
 endsnippet
 
 context math(context)
-snippet `\s\s$` "Space" A
- \; 
+snippet `ss$` "Space" A
+\;
 endsnippet
 
 context math(context)
@@ -196,6 +198,16 @@ endsnippet
 context math(context)
 snippet `(\S+)us` "Underset" A
 \underset{ $1}{``rv = m[1]``}$0
+endsnippet
+
+context math(context)
+snippet tx "Text inside math" A
+\text{$1}$0
+endsnippet
+
+context math(context)
+snippet cd "Cdot" A
+\cdot 
 endsnippet
 
 context math(context)
@@ -247,32 +259,27 @@ endsnippet
 
 context math(context)
 snippet le "Let" A
-\sqsupset 
+\sqsupset\;
 endsnippet
 
 context math(context)
 snippet fa "Forall" A
-\forall 
+\forall\;
 endsnippet
 
 context math(context)
 snippet ex "Exists" A
-\exists 
+\exists\;
 endsnippet
 
 context math(context)
 snippet lo "Look" A
-\measuredangle 
+\measuredangle\;
 endsnippet
 
 context math(context)
 snippet sb "Subset" A
 \subset 
-endsnippet
-
-context math(context)
-snippet sp "Supset" A
-\supset 
 endsnippet
 
 context math(context)
