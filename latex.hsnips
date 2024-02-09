@@ -9,7 +9,16 @@ endglobal
 
 # AUTO SNIPPETS
 
-snippet `\\\[\s$` "Change language when inside math" A
+snippet `\\\(\s$` "Change language when inside inline math" A
+``
+    if (changeLangInMath) {
+        langChanger.stdin.write("1\n")
+    }
+    rv = "\\( "
+``
+endsnippet
+
+snippet `\\\[\s$` "Change language when inside displaystyle math" A
 ``
     if (changeLangInMath) {
         langChanger.stdin.write("1\n")
@@ -18,30 +27,40 @@ snippet `\\\[\s$` "Change language when inside math" A
 ``
 endsnippet
 
-# snippet `\\\][ ,.]$` "Change language when end math" A
-# ``
-#     if (changeLangInMath) {
-#         langChanger.stdin.write("1\n")
-#     }
-#     rv = m[0]
-# ``
-# endsnippet
-
-snippet `\\\[(.*)\\\]([ ,.])$` "Change display math to inline and change language if needed" A
+snippet `\\\)[ ,.]$` "Change language when end inline math" A
 ``
     if (changeLangInMath) {
         langChanger.stdin.write("1\n")
     }
-    rv = "\\(" + m[1] + "\\)" + m[2];
+    rv = m[0]
 ``
 endsnippet
 
-snippet mk "Math start" A
-\[$1\]$0
+snippet `\\\][ ,.]$` "Change language when end displaystyle math" A
+``
+    if (changeLangInMath) {
+        langChanger.stdin.write("1\n")
+    }
+    rv = m[0]
+``
 endsnippet
 
-snippet ьл "Math start" A
-\[$1\]$0
+snippet mk "Math inline start" A
+\($1\)$0
+endsnippet
+
+snippet ьл "Math inline start" A
+\($1\)$0
+endsnippet
+
+snippet md "Math displaystyle start" A
+\[$1
+\]$0
+endsnippet
+
+snippet ьв "Math displaystyle start" A
+\[$1
+\]$0
 endsnippet
 
 # TAB SNIPPETS
