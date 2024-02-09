@@ -91,15 +91,6 @@
 		],
 		"description": "Generates a simple LaTeX template"
 	},
-	"Section": {
-		"prefix": [
-			"сек"
-		],
-		"body": [
-			"\\section*{$1}$0"
-		],
-		"description": ""
-	},
 	"Center": {
 		"prefix": [
 			"цен"
@@ -110,12 +101,36 @@
 		],
 		"description": ""
 	},
+	"Chapter": {
+		"prefix": [
+			"гл"
+		],
+		"body": [
+			"\\chapter{$1}",
+			"",
+			"$0"
+		],
+		"description": ""
+	},
+	"Section": {
+		"prefix": [
+			"сек"
+		],
+		"body": [
+			"\\section{$1}",
+			"",
+			"$0"
+		],
+		"description": ""
+	},
 	"Subsection": {
 		"prefix": [
 			"ссек"
 		],
 		"body": [
-			"\\subsection*{$1}$0"
+			"\\subsection{$1}",
+			"",
+			"$0"
 		],
 		"description": ""
 	},
@@ -124,7 +139,9 @@
 			"сссек"
 		],
 		"body": [
-			"\\subsubsection*{$1}$0"
+			"\\subsubsection{$1}",
+			"",
+			"$0"
 		],
 		"description": ""
 	},
