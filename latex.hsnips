@@ -266,6 +266,11 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet lv "Lambda" A
+\lambda
+endsnippet
+
+context math(context)
 snippet ev "Epsilon" A
 \varepsilon
 endsnippet
