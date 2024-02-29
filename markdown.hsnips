@@ -54,6 +54,11 @@ endsnippet
 ## SNIPPETS REQUIRING SPACES
 
 context math(context)
+snippet ` <> ` "approx" A
+ \approx 
+endsnippet
+
+context math(context)
 snippet ` <= ` "leq" A
  \leq 
 endsnippet
