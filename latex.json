@@ -179,7 +179,7 @@
 			"",
 			"\\graphicspath{{img/}}",
 			"",
-			"\\def\\[#1\\]{\\begin{equation}\\begin{aligned}#1\\end{aligned}\\end{equation}}",
+			"\\def\\[#1\\]{\\begin{equation}\\begin{gathered}#1\\end{gathered}\\end{equation}}",
 			"",
 			"\\begin{document}",
 			"\\begin{titlepage}",
