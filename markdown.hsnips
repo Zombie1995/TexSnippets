@@ -218,6 +218,20 @@ endsnippet
 ### EXCEPTIONS
 
 context math(context)
+snippet cas "cases" A
+\begin{cases}
+    $1
+\end{cases}$0
+endsnippet
+
+context math(context)
+snippet vma "vmatrix" A
+\begin{vmatrix}
+    $1
+\end{vmatrix}$0
+endsnippet
+
+context math(context)
 snippet pma "pmatrix" A
 \begin{pmatrix}
     $1

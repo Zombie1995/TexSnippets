@@ -54,13 +54,11 @@ snippet ьл "Math inline start" A
 endsnippet
 
 snippet md "Math displaystyle start" A
-\[$1
-\]$0
+\[$1\]$0
 endsnippet
 
 snippet ьв "Math displaystyle start" A
-\[$1
-\]$0
+\[$1\]$0
 endsnippet
 
 # TAB SNIPPETS
@@ -252,10 +250,10 @@ endsnippet
 ### EXCEPTIONS
 
 context math(context)
-snippet pma "pmatrix" A
-\begin{pmatrix}
+snippet cas "cases" A
+\begin{cases}
     $1
-\end{pmatrix}$0
+\end{cases}$0
 endsnippet
 
 context math(context)
@@ -263,6 +261,13 @@ snippet vma "vmatrix" A
 \begin{vmatrix}
     $1
 \end{vmatrix}$0
+endsnippet
+
+context math(context)
+snippet pma "pmatrix" A
+\begin{pmatrix}
+    $1
+\end{pmatrix}$0
 endsnippet
 
 context math(context)
