@@ -265,6 +265,11 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet sv "Sigma" A
+\sigma
+endsnippet
+
+context math(context)
 snippet lv "Lambda" A
 \lambda
 endsnippet
