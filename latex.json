@@ -124,7 +124,7 @@
 			"",
 			"\\newcommand{\\chapter}[1]{%",
 			"	\\begin{center}%",
-			"		\\large\\scshape\\color{gray} #1%",
+			"		\\large\\scshape #1%",
 			"	\\end{center}%",
 			"   \\addcontentsline{toc}{section}{#1}%",
 			"}",
