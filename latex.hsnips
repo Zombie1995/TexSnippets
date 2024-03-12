@@ -290,6 +290,11 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet ov "Omega" A
+\omega
+endsnippet
+
+context math(context)
 snippet sv "Sigma" A
 \sigma
 endsnippet
