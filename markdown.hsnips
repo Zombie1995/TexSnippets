@@ -1,7 +1,8 @@
-# const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('^');}"]);
+# Нужно поменять langChanger, если смена раскладки назначана не на CapsLock, а на Shift + Alt
+# const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('%+');}"]);
 global
 var changeLangInMath = true;
-const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('%+');}"]);
+const langChanger = require("child_process").spawn("powershell", ["$wshell = New-Object -ComObject wscript.shell;while($true){$in = Read-Host;if($in -eq \"\"){break;}$wshell.SendKeys('{CAPSLOCK}');}"]);
 function math(context) {
     return context.scopes.some(s => s.includes("math"));
 }
