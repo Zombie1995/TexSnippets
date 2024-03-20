@@ -113,6 +113,8 @@
 			"\\usepackage{tikz}",
 			"\\usepackage{pgfplots}",
 			"\\usepackage{bookmark}",
+			"\\usepackage{multicol}",
+			"\\usepackage{caption}",
 			"\\usepackage{fontspec}",
 			"\\usepackage{unicode-math}",
 			"\\usepackage{titlesec}",
