@@ -266,6 +266,11 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet dv "Delta" A
+\delta
+endsnippet
+
+context math(context)
 snippet ov "Omega" A
 \omega
 endsnippet
