@@ -226,6 +226,15 @@
 		],
 		"description": "Generates GOST LaTeX template"
 	},
+	"Caption": {
+		"prefix": [
+			"под"
+		],
+		"body": [
+			"\\small\\color{gray} $0",
+		],
+		"description": ""
+	},
 	"Center": {
 		"prefix": [
 			"цен"
