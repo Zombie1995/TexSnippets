@@ -27,12 +27,12 @@ snippet ьл "Math start" A
 $$1$$0
 endsnippet
 
-snippet $mk "Math start" A
-$$1$$0
+snippet md "Math start" A
+$$$1$$$0
 endsnippet
 
-snippet $ьл "Math start" A
-$$$1$$0
+snippet ьв "Math start" A
+$$$1$$$0
 endsnippet
 
 # TAB SNIPPETS
