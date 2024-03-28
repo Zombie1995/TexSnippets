@@ -99,6 +99,7 @@
 			"% !TEX program = xelatex",
 			"\\documentclass[a4paper]{article}",
 			"\\usepackage[fontsize=14pt]{fontsize}",
+			"\\usepackage[english, russian]{babel}",
 			"\\usepackage{amsmath}",
 			"\\usepackage{mathastext}",
 			"\\usepackage{xcolor}",
