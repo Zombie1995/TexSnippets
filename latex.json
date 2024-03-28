@@ -97,8 +97,8 @@
 		],
 		"body": [
 			"% !TEX program = xelatex",
-			"\\documentclass[14pt, a4paper]{extarticle}",
-			"\\usepackage[english, russian]{babel}",
+			"\\documentclass[a4paper]{extarticle}",
+			"\\usepackage[fontsize=14pt]{fontsize}",
 			"\\usepackage{amsmath}",
 			"\\usepackage{mathastext}",
 			"\\usepackage{xcolor}",
