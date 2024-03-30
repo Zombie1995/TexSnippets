@@ -266,6 +266,21 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet Dv "Big delta" A
+\Delta
+endsnippet
+
+context math(context)
+snippet cv "Chi" A
+\chi
+endsnippet
+
+context math(context)
+snippet xv "Xi" A
+\xi
+endsnippet
+
+context math(context)
 snippet dv "Delta" A
 \delta
 endsnippet
