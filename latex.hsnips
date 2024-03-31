@@ -278,7 +278,7 @@ endsnippet
 
 context math(context)
 snippet tx "Text inside math" A
-\text{$0}
+\text{$1}$0
 endsnippet
 
 context math(context)
