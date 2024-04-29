@@ -248,7 +248,7 @@ endsnippet
 
 context math(context)
 snippet rt "Root" A
-{\sqrt[$1]{ $2}}$0
+{\sqrt$1{ $2}}$0
 endsnippet
 
 context math(context)
