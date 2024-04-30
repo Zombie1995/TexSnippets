@@ -266,6 +266,16 @@ endsnippet
 ## VARS
 
 context math(context)
+snippet Gv "Big gamma" A
+\Gamma
+endsnippet
+
+context math(context)
+snippet gv "gamma" A
+\gamma
+endsnippet
+
+context math(context)
 snippet Dv "Big delta" A
 \Delta
 endsnippet
