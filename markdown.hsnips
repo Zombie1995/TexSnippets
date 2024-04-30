@@ -169,51 +169,96 @@ snippet ` aa ` "Cap" A
  \cap 
 endsnippet
 
-### SNIPPETS WITH INDICES
-
 context math(context)
 snippet ` bu ` "Big cup" A
- \bigcup\limits_{ $1}^{ $2} $0
+ \bigcup 
 endsnippet
 
 context math(context)
 snippet ` ba ` "Big cap" A
- \bigcap\limits_{ $1}^{ $2} $0
+ \bigcap 
 endsnippet
 
 context math(context)
 snippet ` sum ` "Sum" A
- \sum\limits_{ ${1:i=1}^{ ${2:n}} $0
+ \sum 
 endsnippet
 
 context math(context)
 snippet ` int ` "Integral" A
- \int\limits_{ $1}^{ $2} $0
+ \int 
 endsnippet
 
 context math(context)
 snippet ` oint ` "Contour integral" A
- \oint\limits_{ $1}^{ $2} $0
+ \oint 
 endsnippet
 
 context math(context)
 snippet ` iint ` "Double integral" A
- \iint\limits_{ $1}^{ $2} $0 
+ \iint 
 endsnippet
 
 context math(context)
 snippet ` lim ` "Limit" A
- \lim\limits_{ $1} $0
+ \lim 
 endsnippet
 
 context math(context)
 snippet ` max ` "Max" A
- \max\limits_{ $1} $0
+ \max 
 endsnippet
 
 context math(context)
 snippet ` min ` "Min" A
- \min\limits_{ $1} $0
+ \min 
+endsnippet
+
+### SNIPPETS WITH INDICES
+
+context math(context)
+snippet bu, "Big cup" A
+\bigcup\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet ba, "Big cap" A
+\bigcap\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet sum, "Sum" A
+\sum\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet int, "Integral" A
+\int\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet oint, "Contour integral" A
+\oint\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet iint, "Double integral" A
+\iint\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet lim, "Limit" A
+\lim\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet max, "Max" A
+\max\limits_{ $1}$0
+endsnippet
+
+context math(context)
+snippet min, "Min" A
+\min\limits_{ $1}$0
 endsnippet
 
 ### EXCEPTIONS
