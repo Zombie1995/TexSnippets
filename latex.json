@@ -141,7 +141,7 @@
 			"	\\renewcommand{\\cfttoctitlefont}{}%",
 			"	\\renewcommand\\contentsname{%",
 			"		\\begin{center}%",
-			"			\\large\\scshape\\color{black} Содержание%",
+			"			\\phantomsection \\large\\scshape\\color{black} Содержание%",
 			"		\\end{center}%",
 			"		\\vspace{-0.5cm}%",
 			"	}%",
