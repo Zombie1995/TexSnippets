@@ -160,7 +160,7 @@
 			"\\setmainfont{Times New Roman}",
 			"\\linespread{1.5}",
 			"",
-			"\\DeclareSymbolFont{letters}{\\encodingdefault}{\rmdefault}{m}{it}",
+			"\\DeclareSymbolFont{letters}{\\encodingdefault}{\\rmdefault}{m}{it}",
 			"",
 			"\\pgfplotsset{compat=1.7}",
 			"",
