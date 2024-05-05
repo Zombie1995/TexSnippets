@@ -119,6 +119,7 @@
 			"\\usepackage{unicode-math}",
 			"\\usepackage{titlesec}",
 			"\\usepackage{tocloft}",
+			"\\usepackage{tabularx}",
 			"% Uncomment below to enable text style math",
 			"% \\usepackage{mathastext}",
 			"",
@@ -235,12 +236,34 @@
 		],
 		"description": "Generates GOST LaTeX template"
 	},
-	"Caption": {
+	"Figure": {
 		"prefix": [
-			"под"
+			"fig",
+			"карт"
 		],
 		"body": [
-			"\\small\\color{gray} $0",
+			"\\begin{figure}[h]",
+			"	\\centering",
+			"	\\includegraphics*[width=0.8\\linewidth]{${2:title}}",
+			"	\\caption{${1:title}}",
+			"\\end{figure}$0",
+		],
+		"description": "Картинка"
+	},
+	"Table": {
+		"prefix": [
+			"table",
+			"табл"
+		],
+		"body": [
+			"\\begin{table}[h]",
+			"	\\centering",
+			"	\\begin{tabularx}{0.9\\textwidth}{|l|X|}",
+			"		\\hline ${1:Item} & ${2:Description} \\\\\\",
+			"		\\hline",
+			"	\\end{tabularx}",
+			"	\\caption{${3:title}}",
+			"\\end{table}$0",
 		],
 		"description": ""
 	},
