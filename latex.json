@@ -156,6 +156,8 @@
 			"\\setmainfont{Times New Roman}",
 			"\\linespread{1.5}",
 			"",
+			"\\DeclareSymbolFont{letters}{\\encodingdefault}{\rmdefault}{m}{it}",
+			"",
 			"\\pgfplotsset{compat=1.7}",
 			"",
 			"\\definecolor{codegreen}{rgb}{0,0.6,0}",
