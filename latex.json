@@ -258,9 +258,8 @@
 		"body": [
 			"\\begin{table}[ht]",
 			"	\\centering",
-			"	\\begin{tabularx}{0.9\\textwidth}{|l|X|}",
-			"		\\hline ${1:Item} & ${2:Description} \\\\\\",
-			"		\\hline",
+			"	\\begin{tabularx}{0.9\\textwidth}{|l|X|} \\hline",
+			"		${1:Item} & ${2:Description} \\\\\\ \\hline",
 			"	\\end{tabularx}",
 			"	\\caption{${3:title}}",
 			"\\end{table}$0",
