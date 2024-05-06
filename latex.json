@@ -242,7 +242,7 @@
 			"карт"
 		],
 		"body": [
-			"\\begin{figure}[h]",
+			"\\begin{figure}[ht]",
 			"	\\centering",
 			"	\\includegraphics*[width=0.8\\linewidth]{${2:title}}",
 			"	\\caption{${1:title}}",
@@ -256,7 +256,7 @@
 			"табл"
 		],
 		"body": [
-			"\\begin{table}[h]",
+			"\\begin{table}[ht]",
 			"	\\centering",
 			"	\\begin{tabularx}{0.9\\textwidth}{|l|X|}",
 			"		\\hline ${1:Item} & ${2:Description} \\\\\\",
