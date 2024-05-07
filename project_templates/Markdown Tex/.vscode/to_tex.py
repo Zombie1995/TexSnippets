@@ -10,6 +10,26 @@ def convert_latex_math(text):
     return text
 
 
+def transform_markdown_to_latex_comments(text):
+    # Define a regular expression pattern to match Markdown comments
+    pattern = r'<!--(.*?)-->'
+
+    # Use the re.DOTALL flag to match newlines within the comments
+    matches = re.findall(pattern, text, re.DOTALL)
+
+    # Transform the Markdown comments to LaTeX format
+    latex_comments = ['\n'.join(
+        ['% ' + line.strip() for line in comment.splitlines()]) for comment in matches]
+
+    # Replace the Markdown comments with the LaTeX comments
+    transformed_text = text
+    for i, comment in enumerate(matches):
+        transformed_text = transformed_text.replace(
+            f'<!--{comment}-->', latex_comments[i])
+
+    return transformed_text
+
+
 def convert_markdown_to_latex_sections(text):
     # Define regular expressions to search for sections in Markdown
     pattern = r'^(#+)\s*(.+)$'
@@ -121,6 +141,8 @@ def create_latex_file(markdown_file):
     formatted_file_content = convert_latex_math(file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
+    formatted_file_content = transform_markdown_to_latex_comments(
+        formatted_file_content)
     formatted_file_content = convert_markdown_to_latex_sections(
         formatted_file_content)
 
