@@ -1,0 +1,7 @@
+{
+    "triggerTaskOnSave.tasks": {
+        "Convert Markdown to LaTeX": [
+            "*.md",
+        ],
+    }
+}
