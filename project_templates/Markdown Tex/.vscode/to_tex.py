@@ -2,6 +2,30 @@ import re
 import os
 
 
+def extract_title_from_comment(text):
+    pattern = r'<!--\s*Title:\s*(.+?)\s*-->'
+    match = re.search(pattern, text)
+
+    if match:
+        title = match.group(1)
+        text_without_comment = text.replace(f"{match.group(0)}\n", '')
+        return text_without_comment, title
+    else:
+        return text, None
+
+
+def extract_author_from_comment(text):
+    pattern = r'<!--\s*Author:\s*(.+?)\s*-->'
+    match = re.search(pattern, text)
+
+    if match:
+        author = match.group(1)
+        text_without_comment = text.replace(f"{match.group(0)}\n", '')
+        return text_without_comment, author
+    else:
+        return text, None
+
+
 def convert_latex_math(text):
     text = re.sub(r'\\\$', r'\\dollar', text)
     text = re.sub(r'\$\$(.*?)\$\$', r'\\[\1\\]', text, flags=re.DOTALL)
@@ -138,7 +162,10 @@ def create_latex_file(markdown_file):
     with open(markdown_file, 'r', encoding="utf-8") as file:
         file_content = file.read()
 
-    formatted_file_content = convert_latex_math(file_content)
+    formatted_file_content, title = extract_title_from_comment(file_content)
+    formatted_file_content, author = extract_author_from_comment(
+        formatted_file_content)
+    formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
     formatted_file_content = transform_markdown_to_latex_comments(
@@ -274,9 +301,9 @@ def create_latex_file(markdown_file):
     \\par
     {{\\scshape ITMO University\\par}}
     \\vspace{{80mm}}
-    {{\\Large\\bfseries\\scshape Название\\par}}
+    {{\\Large\\bfseries\\scshape {title if title is not None else "Название"}\\par}}
     \\vspace{{20mm}}
-    {{\\scshape Кербер Егор\\par}}
+    {{\\scshape {author if author is not None else "Кербер Егор"}\\par}}
     \\vfill
     {{\\scshape\\today\\par}}
 \\end{{titlepage}}
