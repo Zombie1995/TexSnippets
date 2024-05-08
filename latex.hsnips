@@ -327,6 +327,13 @@ snippet tx "Text inside math" A
 endsnippet
 
 context math(context)
+snippet cl "Column" A
+``
+    rv = "& "
+``
+endsnippet
+
+context math(context)
 snippet nl "New line" A
 ``
     rv = "\\\\\\\n"
