@@ -217,7 +217,7 @@ def create_latex_file(markdown_file):
 \\newcommand{{\\chapter}}[1]{{%
     \\newpage%
     \\begin{{center}}%
-        \\phantomsection\\bfseries\\large\\scshape #1%
+        \\phantomsection\\bfseries\\large\\scshape\\uppercase{{#1}}%
     \\end{{center}}%
     \\addcontentsline{{toc}}{{section}}{{#1}}%
 }}
@@ -226,7 +226,7 @@ def create_latex_file(markdown_file):
     \\renewcommand{{\\cfttoctitlefont}}{{}}%
     \\renewcommand\\contentsname{{%
         \\begin{{center}}%
-            \\bfseries\\large\\scshape\\color{{black}} СОДЕРЖАНИЕ%
+            \\bfseries\\large\\scshape\\color{{black}}\\uppercase{{Содержание}}%
         \\end{{center}}%
         \\vspace{{-0.5cm}}%
     }}%
