@@ -104,6 +104,7 @@
 			"\\usepackage{xcolor}",
 			"\\usepackage{accsupp}",
 			"\\usepackage{listings}",
+			"\\usepackage{float}",
 			"\\usepackage[unicode, colorlinks=true, linkcolor=blue]{hyperref}",
 			"\\usepackage{geometry}",
 			"\\usepackage{graphicx}",
@@ -247,7 +248,7 @@
 			"карт"
 		],
 		"body": [
-			"\\begin{figure}[ht]",
+			"\\begin{figure}[H]",
 			"	\\centering",
 			"	\\includegraphics*[width=0.8\\linewidth]{${2:title}}",
 			"	\\caption{${1:title}}",
@@ -261,7 +262,7 @@
 			"табл"
 		],
 		"body": [
-			"\\begin{table}[ht]",
+			"\\begin{table}[H]",
 			"	\\centering",
 			"	\\begin{tabularx}{0.9\\textwidth}{|Z|Z|} \\hline",
 			"		${1:Item} & ${2:Description} \\\\\\ \\hline",

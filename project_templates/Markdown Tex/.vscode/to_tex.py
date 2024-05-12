@@ -87,7 +87,7 @@ def convert_markdown_to_latex_sections(text):
 
 def convert_images(text):
     pattern = r'\!\[\]\((img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\)\n\n([^\n]*)'
-    replacement = r'\\begin{figure}[ht]\n    \\centering\n    \\includegraphics*[width=0.8\\linewidth]{\1}\n    \\caption{\2}\n\\end{figure}'
+    replacement = r'\\begin{figure}[H]\n    \\centering\n    \\includegraphics*[width=0.8\\linewidth]{\1}\n    \\caption{\2}\n\\end{figure}'
     replaced_image = re.sub(pattern, replacement, text)
     return replaced_image
 
@@ -130,7 +130,7 @@ def markdown_to_latex_table(text):
             caption_text = lines[i]
 
             # Convert the Markdown table to a LaTeX table
-            latex_table.append(r'\begin{table}[ht]')
+            latex_table.append(r'\begin{table}[H]')
             latex_table.append(r'    \centering')
             latex_table.append(
                 r'    \begin{tabularx}{0.9\textwidth}{|' + '|'.join(alignment) + r'|} \hline')
@@ -181,6 +181,7 @@ def create_latex_file(markdown_file):
 \\usepackage{{xcolor}}
 \\usepackage{{accsupp}}
 \\usepackage{{listings}}
+\\usepackage{{float}}
 \\usepackage[unicode, colorlinks=true, linkcolor=blue]{{hyperref}}
 \\usepackage{{geometry}}
 \\usepackage{{graphicx}}
