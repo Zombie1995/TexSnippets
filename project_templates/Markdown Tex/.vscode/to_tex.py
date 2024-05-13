@@ -2,6 +2,12 @@ import re
 import os
 
 
+def convert_italic_and_bold_text(text):
+    new_text = re.sub(r'\*\*([^*]+)\*\*', r'\\textbf{\1}', text)
+    new_text = re.sub(r'\*([^*]+)\*', r'\\textit{\1}', new_text)
+    return new_text
+
+
 def extract_title_from_comment(text):
     pattern = r'<!--\s*Title:\s*(.+?)\s*-->'
     match = re.search(pattern, text)
@@ -164,6 +170,8 @@ def create_latex_file(markdown_file):
 
     formatted_file_content, title = extract_title_from_comment(file_content)
     formatted_file_content, author = extract_author_from_comment(
+        formatted_file_content)
+    formatted_file_content = convert_italic_and_bold_text(
         formatted_file_content)
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
