@@ -98,6 +98,13 @@ def convert_images(text):
     return replaced_image
 
 
+def get_first_letter(string):
+    if string:
+        return string[0]
+    else:
+        return ""
+
+
 def markdown_to_latex_table(text):
     # Split the text into lines
     lines = text.split('\n')
@@ -112,7 +119,7 @@ def markdown_to_latex_table(text):
     i = 0
     while i < len(lines):
         # Check if the current line is a Markdown table
-        if '|' in lines[i]:
+        if '|' in lines[i] and get_first_letter(lines[i]) == '|':
             # Get the table header
             header = lines[i].strip().split('|')[1:-1]
             header = ["\\textbf{" + h.strip() + "}" for h in header]
