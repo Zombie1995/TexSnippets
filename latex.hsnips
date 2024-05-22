@@ -55,11 +55,11 @@ snippet ьл "Math inline start" A
 endsnippet
 
 snippet md "Math displaystyle start" A
-\[$1\]$0
+\[$1;\]$0
 endsnippet
 
 snippet ьв "Math displaystyle start" A
-\[$1\]$0
+\[$1;\]$0
 endsnippet
 
 # TAB SNIPPETS

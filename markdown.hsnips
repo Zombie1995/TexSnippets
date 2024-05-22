@@ -28,11 +28,11 @@ $$1$$0
 endsnippet
 
 snippet md "Math start" A
-$$$1$$$0
+$$$1;$$$0
 endsnippet
 
 snippet ьв "Math start" A
-$$$1$$$0
+$$$1;$$$0
 endsnippet
 
 # TAB SNIPPETS
