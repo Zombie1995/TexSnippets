@@ -2,6 +2,19 @@ import re
 import os
 
 
+def markdown_list_to_latex(text):
+    """
+    Трансформирует ненумерованные списки формата markdown в формат latex
+    """
+    def latex_list(match):
+        items = [
+            f'    \\item[--] {item[2:].strip()}' for item in match.split('\n')][:-1]
+        return '\\begin{itemize}[left=\parindent]\n' + '\n'.join(items) + '\n\\end{itemize}\n'
+    # шаблон для поиска ненумерованного списка markdown
+    pattern = r'((^- .*?\n)+)'
+    return re.sub(pattern, lambda match: latex_list(match.group(0)), text, flags=re.MULTILINE)
+
+
 def convert_italic_and_bold_text(text):
     new_text = re.sub(r'\*\*([^*]+)\*\*', r'\\textbf{\1}', text)
     new_text = re.sub(r'\*([^*]+)\*', r'\\textit{\1}', new_text)
@@ -180,6 +193,8 @@ def create_latex_file(markdown_file):
         formatted_file_content)
     formatted_file_content = convert_italic_and_bold_text(
         formatted_file_content)
+    formatted_file_content = markdown_list_to_latex(
+        formatted_file_content)
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
@@ -213,6 +228,7 @@ def create_latex_file(markdown_file):
 \\usepackage{{titlesec}}
 \\usepackage{{tocloft}}
 \\usepackage{{tabularx}}
+\\usepackage{{enumitem}}
 \\usepackage[labelsep=endash]{{caption}}
 % Uncomment below to enable text style math
 % \\usepackage{{mathastext}}
