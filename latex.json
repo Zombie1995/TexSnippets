@@ -121,6 +121,7 @@
 			"\\usepackage{titlesec}",
 			"\\usepackage{tocloft}",
 			"\\usepackage{tabularx}",
+			"\\usepackage{enumitem}",
 			"\\usepackage[labelsep=endash]{caption}",
 			"% Uncomment below to enable text style math",
 			"% \\usepackage{mathastext}",
