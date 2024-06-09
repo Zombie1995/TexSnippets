@@ -2,6 +2,31 @@ import re
 import os
 
 
+def markdown_enumerate_to_latex(text):
+    # Регулярное выражение для поиска нумерованных списков в Markdown
+    pattern = r'^(\d+)\. (.*)$'
+    lines = text.split('\n')
+    latex_lines = []
+    in_list = False
+    for line in lines:
+        match = re.match(pattern, line)
+        if match:
+            # Если нашли нумерованный список, преобразуем его в список enumerate LaTeX
+            if not in_list:
+                latex_lines.append('\\begin{enumerate}[left=\parindent]')
+                in_list = True
+            num, item = match.groups()
+            latex_lines.append(f'   \\item[{num}.] {item}')
+        else:
+            if in_list:
+                latex_lines.append('\\end{enumerate}')
+                in_list = False
+            latex_lines.append(line)
+    if in_list:
+        latex_lines.append('\\end{enumerate}')
+    return '\n'.join(latex_lines)
+
+
 def markdown_list_to_latex(text):
     """
     Трансформирует ненумерованные списки формата markdown в формат latex
@@ -194,6 +219,8 @@ def create_latex_file(markdown_file):
     formatted_file_content = convert_italic_and_bold_text(
         formatted_file_content)
     formatted_file_content = markdown_list_to_latex(
+        formatted_file_content)
+    formatted_file_content = markdown_enumerate_to_latex(
         formatted_file_content)
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
