@@ -567,6 +567,30 @@ snippet `(.)\|` "Abs" A
 endsnippet
 
 context math(context)
+snippet `(.*[^\\\s])td` "Time derivative" A
+``
+    let str = m[1];
+    let lastIndex = str.length - 1;
+    let depth = 0;
+    let i = lastIndex;
+    for (i; i >= 0; i--) {
+        if (str[i] == '}') depth += 1;
+        if (str[i] == '{') depth -= 1;
+        if ((depth < 0) || (depth == 0 && str[i] == ' ')) break;
+    }
+    i++;
+    let over = str.slice(i);
+    if (over.slice(0, 1) == "{" 
+    && over.slice(-1) == "}" 
+    && depth == 0) {
+        over = over.slice(1,over.length - 1);    
+    }
+    over = over.replace(/dot/g, "ddot");
+    rv = str.slice(0, i) + "{" + ((over.indexOf("dot") != -1) ? "" : "\\dot ") + over + "}";
+``$0
+endsnippet
+
+context math(context)
 snippet `(.*[^\\\s])dd` "Derivative" A
 ``
     let str = m[1];
