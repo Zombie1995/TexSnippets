@@ -2,20 +2,36 @@ import re
 import os
 
 
-def convert_image_comments_to_ref(text):
+def convert_refs(text):
     # Регулярное выражение для поиска комментариев с изображениями
-    pattern = r'<!--\s*(img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\s*-->'
+    img_pattern = r'<!--\s*(img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\s*-->'
 
-    # Замена комментариев на LaTeX команды \ref
-    def replacement(match):
+    # Регулярное выражение для поиска комментариев с таблицами
+    table_pattern = r'<!--\s*\|.*?\|.*?-->'
+    # Замена комментариев на LaTeX команды \ref для изображений
+
+    def img_replacement(match):
         image_path = match.group(1)
         # Создаем метку для изображения
-        # Заменяем символы для создания метки
         label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
         return f'\\cref{{{label}}}'
 
+    # Замена комментариев на LaTeX команды для таблиц
+    def table_replacement(match):
+        # Получаем содержимое таблицы
+        table_content = match.group(0)
+        # Удаляем начальные и конечные вертикальные черты и пробелы
+        cleaned_content = table_content.strip('<!-- ').strip(' -->').strip()
+        # Создаем метку для таблицы
+        label = 'tab:' + re.sub(r'\s+', '-', cleaned_content.replace('|', '-'))
+        return f'\\cref{{{label}}}'
+
     # Заменяем все найденные комментарии на LaTeX команды \ref
-    return re.sub(pattern, replacement, text)
+    text = re.sub(img_pattern, img_replacement, text)
+    text = re.sub(table_pattern, table_replacement,
+                  text)  # Заменяем на метку таблицы
+
+    return text
 
 
 def convert_code_blocks(text):
@@ -230,12 +246,13 @@ def markdown_to_latex_table(text):
             latex_table.append(
                 r'    \begin{tabularx}{0.9\textwidth}{|' + '|'.join(alignment) + r'|} \hline')
             latex_table.append('        ' + ' & '.join(header) + r' \\ \hline')
-            print(header)
             for row in rows:
                 latex_table.append(
                     '        ' + ' & '.join(row) + r' \\ \hline')
             latex_table.append(r'    \end{tabularx}')
             latex_table.append(r'    \caption{' + caption_text + '}')
+            latex_table.append(
+                r'    \label{' + re.sub(r'\s+', '-', 'tab:' + lines[i - len(rows) - 3].replace('|', '-')) + '}')
             latex_table.append(r'\end{table}')
 
             # Add the LaTeX table to the output text
@@ -277,7 +294,7 @@ def create_latex_file(markdown_file):
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
-    formatted_file_content = convert_image_comments_to_ref(
+    formatted_file_content = convert_refs(
         formatted_file_content)
     formatted_file_content = transform_markdown_to_latex_comments(
         formatted_file_content)
@@ -317,7 +334,8 @@ def create_latex_file(markdown_file):
 % Uncomment below to enable text style math
 % \\usepackage{{mathastext}}
 
-\\crefformat{{figure}}{{(см. рисунок #2#1#3)}}
+\\crefformat{{figure}}{{(см. рис. #2#1#3)}}
+\\crefformat{{table}}{{(см. табл. #2#1#3)}}
 
 \\DTMnewdatestyle{{monthyear}}{{%
     % ##1 = year, ##2 = month, ##3 = day
