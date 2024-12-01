@@ -8,8 +8,11 @@ def convert_refs(text):
 
     # Регулярное выражение для поиска комментариев с таблицами
     table_pattern = r'<!--\s*\|.*?\|.*?-->'
-    # Замена комментариев на LaTeX команды \ref для изображений
 
+    # Регулярное выражение для поиска комментариев с $ ... $
+    equation_pattern = r'<!--\s*\$\$\s*(.*?)\s*\$\$\s*-->'
+
+    # Замена комментариев на LaTeX команды \cref для изображений
     def img_replacement(match):
         image_path = match.group(1)
         # Создаем метку для изображения
@@ -23,13 +26,24 @@ def convert_refs(text):
         # Удаляем начальные и конечные вертикальные черты и пробелы
         cleaned_content = table_content.strip('<!-- ').strip(' -->').strip()
         # Создаем метку для таблицы
-        label = 'tab:' + re.sub(r'\s+', '-', cleaned_content.replace('|', '-'))
+        label = 'tab:' + \
+            re.sub(r'\s+', '-', cleaned_content.replace('|', '-').replace('\\', '-'))
+        return f'\\cref{{{label}}}'
+
+    # Замена комментариев с выражением на LaTeX команды для cref
+    def equation_replacement(match):
+        equation_content = match.group(1)
+        # Создаем метку для cref
+        label = 'eq:' + \
+            re.sub(r'\s+', '-', equation_content.replace('\\', '-'))
         return f'\\cref{{{label}}}'
 
     # Заменяем все найденные комментарии на LaTeX команды \ref
     text = re.sub(img_pattern, img_replacement, text)
     text = re.sub(table_pattern, table_replacement,
                   text)  # Заменяем на метку таблицы
+    text = re.sub(equation_pattern, equation_replacement,
+                  text, flags=re.DOTALL)  # Заменяем на метку выражения
 
     return text
 
@@ -119,7 +133,16 @@ def extract_author_from_comment(text):
 
 def convert_latex_math(text):
     text = re.sub(r'\\\$', r'\\dollar', text)
-    text = re.sub(r'\$\$(.*?)\$\$', r'\\[\1\\]', text, flags=re.DOTALL)
+
+    def equation_replacement(match):
+        equation_content = match.group(1)
+        # Заменяем пробелы на дефисы в содержимом уравнения
+        cleaned_equation = re.sub(
+            r'\s+', '-', equation_content.strip().replace('\\', '-'))
+        return f'\\[{equation_content}\\label{{eq:{cleaned_equation}}}\\]'
+
+    text = re.sub(r'\$\$(.*?)\$\$', equation_replacement,
+                  text, flags=re.DOTALL)
     text = re.sub(r'\$(.*?)\$', r'\\(\1\\)', text)
     text = re.sub(r'\\dollar', r'\\$', text)
     return text
@@ -283,6 +306,8 @@ def create_latex_file(markdown_file):
     formatted_file_content, title = extract_title_from_comment(file_content)
     formatted_file_content, author = extract_author_from_comment(
         formatted_file_content)
+    formatted_file_content = convert_refs(
+        formatted_file_content)
     formatted_file_content = convert_code_blocks(
         formatted_file_content)
     formatted_file_content = convert_italic_and_bold_text(
@@ -294,8 +319,6 @@ def create_latex_file(markdown_file):
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
-    formatted_file_content = convert_refs(
-        formatted_file_content)
     formatted_file_content = transform_markdown_to_latex_comments(
         formatted_file_content)
     formatted_file_content = convert_markdown_to_latex_sections(
@@ -336,6 +359,7 @@ def create_latex_file(markdown_file):
 
 \\crefformat{{figure}}{{(см. рис. #2#1#3)}}
 \\crefformat{{table}}{{(см. табл. #2#1#3)}}
+\\crefformat{{equation}}{{(см. (#2#1#3))}}
 
 \\DTMnewdatestyle{{monthyear}}{{%
     % ##1 = year, ##2 = month, ##3 = day
