@@ -2,6 +2,34 @@ import re
 import os
 
 
+def convert_image_comments_to_ref(text):
+    # Регулярное выражение для поиска комментариев с изображениями
+    pattern = r'<!--\s*(img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\s*-->'
+
+    # Замена комментариев на LaTeX команды \ref
+    def replacement(match):
+        image_path = match.group(1)
+        # Создаем метку для изображения
+        # Заменяем символы для создания метки
+        label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
+        return f'\\cref{{{label}}}'
+
+    # Заменяем все найденные комментарии на LaTeX команды \ref
+    return re.sub(pattern, replacement, text)
+
+
+def convert_code_blocks(text):
+    # Заменяем блоки кода в формате Markdown на LaTeX
+    new_text = re.sub(
+        r'```(.*?)```', r'\\begin{lstlisting}\1\\end{lstlisting}', text, flags=re.DOTALL)
+    # Добавляем комментарий <!-- ignore --> после каждой строки внутри lstlisting
+    new_text = re.sub(r'(\\begin{lstlisting})(.*?)(\\end{lstlisting})',
+                      lambda m: f"{m.group(1)}{'\n'+''.join(list(m.group(2))[1:]).replace(
+                          '\n', '<!-- ignore -->\n')}{m.group(3)}",
+                      new_text, flags=re.DOTALL)
+    return new_text
+
+
 def markdown_enumerate_to_latex(text):
     # Регулярное выражение для поиска нумерованных списков в Markdown
     pattern = r'^(\d+)\. (.*)$'
@@ -41,8 +69,11 @@ def markdown_list_to_latex(text):
 
 
 def convert_italic_and_bold_text(text):
-    new_text = re.sub(r'\*\*([^*]+)\*\*', r'\\textbf{\1}', text)
-    new_text = re.sub(r'\*([^*]+)\*', r'\\textit{\1}', new_text)
+    new_text = re.sub(
+        r'\*\*([^*]+)\*\*(?!.*<!-- ignore -->)', r'\\textbf{\1}', text)
+    new_text = re.sub(r'\*([^*]+)\*(?!.*<!-- ignore -->)',
+                      r'\\textit{\1}', new_text)
+    new_text = re.sub(r'<!-- ignore -->', '', new_text)
     return new_text
 
 
@@ -131,7 +162,20 @@ def convert_markdown_to_latex_sections(text):
 
 def convert_images(text):
     pattern = r'\!\[\]\((img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\)\n\n([^\n]*)'
-    replacement = r'\\begin{figure}[H]\n    \\centering\n    \\includegraphics*[width=0.8\\linewidth]{\1}\n    \\caption{\2}\n\\end{figure}'
+
+    def replacement(match):
+        image_path = match.group(1)
+        caption_text = match.group(2)
+        # Заменяем символы для создания метки
+        label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
+        return (f'\\begin{{figure}}[H]\n'
+                f'    \\centering\n'
+                f'    \\includegraphics*[width=0.8\\linewidth]{{{
+                    image_path}}}\n'
+                f'    \\caption{{{caption_text}}}\n'
+                f'    \\label{{{label}}}\n'
+                f'\\end{{figure}}')
+
     replaced_image = re.sub(pattern, replacement, text)
     return replaced_image
 
@@ -209,12 +253,20 @@ def markdown_to_latex_table(text):
     return output_text
 
 
+def convert_links(text):
+    pattern = r'\[([^\]]+)\]\(([^\)]+)\)'
+    replacement = r'\\href{\2}{\1}'
+    return re.sub(pattern, replacement, text)
+
+
 def create_latex_file(markdown_file):
     with open(markdown_file, 'r', encoding="utf-8") as file:
         file_content = file.read()
 
     formatted_file_content, title = extract_title_from_comment(file_content)
     formatted_file_content, author = extract_author_from_comment(
+        formatted_file_content)
+    formatted_file_content = convert_code_blocks(
         formatted_file_content)
     formatted_file_content = convert_italic_and_bold_text(
         formatted_file_content)
@@ -225,10 +277,13 @@ def create_latex_file(markdown_file):
     formatted_file_content = convert_latex_math(formatted_file_content)
     formatted_file_content = convert_images(formatted_file_content)
     formatted_file_content = markdown_to_latex_table(formatted_file_content)
+    formatted_file_content = convert_image_comments_to_ref(
+        formatted_file_content)
     formatted_file_content = transform_markdown_to_latex_comments(
         formatted_file_content)
     formatted_file_content = convert_markdown_to_latex_sections(
         formatted_file_content)
+    formatted_file_content = convert_links(formatted_file_content)
 
     latex_template = f"""% !TEX program = xelatex
 \\documentclass[a4paper]{{article}}
@@ -257,8 +312,18 @@ def create_latex_file(markdown_file):
 \\usepackage{{tabularx}}
 \\usepackage{{enumitem}}
 \\usepackage[labelsep=endash]{{caption}}
+\\usepackage{{datetime2}}
+\\usepackage{{cleveref}}
 % Uncomment below to enable text style math
 % \\usepackage{{mathastext}}
+
+\\crefformat{{figure}}{{(см. рисунок #2#1#3)}}
+
+\\DTMnewdatestyle{{monthyear}}{{%
+    % ##1 = year, ##2 = month, ##3 = day
+    \\renewcommand*{{\\DTMdisplaydate}}[4]{{\\DTMenglishmonthname{{##2}} ##1}}%
+    \\renewcommand*{{\\DTMDisplaydate}}{{\\DTMdisplaydate}}%
+}}
 
 \\addto\\captionsrussian{{\\renewcommand{{\\figurename}}{{Рисунок}}}}
 
@@ -377,7 +442,7 @@ def create_latex_file(markdown_file):
     \\vspace{{20mm}}
     {{\\scshape {author if author is not None else "Кербер Егор"}\\par}}
     \\vfill
-    {{\\scshape\\today\\par}}
+    {{\\scshape\\DTMsetdatestyle{{monthyear}}\\today\\par}}
 \\end{{titlepage}}
 
 \\setcounter{{page}}{{2}}
