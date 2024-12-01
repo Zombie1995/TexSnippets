@@ -4,19 +4,21 @@ import os
 
 def convert_refs(text):
     # Регулярное выражение для поиска комментариев с изображениями
-    img_pattern = r'<!--\s*(img\/[\w\-]+\.(?:png|jpg|jpeg|gif))\s*-->'
+    img_pattern = r'<!--\s*(img\/.*\.(?:png|jpg|jpeg|gif))\s*-->'
 
     # Регулярное выражение для поиска комментариев с таблицами
     table_pattern = r'<!--\s*\|.*?\|.*?-->'
 
     # Регулярное выражение для поиска комментариев с $ ... $
-    equation_pattern = r'<!--\s*\$\$\s*(.*?)\s*\$\$\s*-->'
+    equation_pattern = r'<!--\s*\$\$(.*?)\$\$\s*-->'
 
     # Замена комментариев на LaTeX команды \cref для изображений
     def img_replacement(match):
         image_path = match.group(1)
         # Создаем метку для изображения
-        label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
+        label = 'fig:' + \
+            image_path.replace('/', '-').replace('.',
+                                                 '-').replace(';', ',fig:')
         return f'\\cref{{{label}}}'
 
     # Замена комментариев на LaTeX команды для таблиц
@@ -25,9 +27,10 @@ def convert_refs(text):
         table_content = match.group(0)
         # Удаляем начальные и конечные вертикальные черты и пробелы
         cleaned_content = table_content.strip('<!-- ').strip(' -->').strip()
-        # Создаем метку для таблицы
+        # Создаем метку для таблицы, чтобы метку для нескольких таблиц, разделяй при помощи ";"
         label = 'tab:' + \
-            re.sub(r'\s+', '-', cleaned_content.replace('|', '-').replace('\\', '-'))
+            re.sub(r'\s+', '-', cleaned_content.replace('|',
+                   '-').replace('\\', '-').replace(';', ',tab:'))
         return f'\\cref{{{label}}}'
 
     # Замена комментариев с выражением на LaTeX команды для cref
@@ -35,7 +38,8 @@ def convert_refs(text):
         equation_content = match.group(1)
         # Создаем метку для cref
         label = 'eq:' + \
-            re.sub(r'\s+', '-', equation_content.replace('\\', '-'))
+            re.sub(r'\s+', '-', equation_content.replace('\\', '-')
+                   ).replace('$$;$$', ',eq:')
         return f'\\cref{{{label}}}'
 
     # Заменяем все найденные комментарии на LaTeX команды \ref
@@ -138,7 +142,7 @@ def convert_latex_math(text):
         equation_content = match.group(1)
         # Заменяем пробелы на дефисы в содержимом уравнения
         cleaned_equation = re.sub(
-            r'\s+', '-', equation_content.strip().replace('\\', '-'))
+            r'\s+', '-', equation_content.replace('\\', '-'))
         return f'\\[{equation_content}\\label{{eq:{cleaned_equation}}}\\]'
 
     text = re.sub(r'\$\$(.*?)\$\$', equation_replacement,
@@ -358,8 +362,11 @@ def create_latex_file(markdown_file):
 % \\usepackage{{mathastext}}
 
 \\crefformat{{figure}}{{(см. рис. #2#1#3)}}
+\\crefmultiformat{{figure}}{{(см. рис. #2#1#3}}{{ и #1)}}{{, #1}}{{ и #1)}}
 \\crefformat{{table}}{{(см. табл. #2#1#3)}}
+\\crefmultiformat{{table}}{{(см. табл. #2#1#3}}{{ и #1)}}{{, #1}}{{ и #1)}}
 \\crefformat{{equation}}{{(см. (#2#1#3))}}
+\\crefmultiformat{{equation}}{{(см. (#2#1#3)}}{{ и (#1))}}{{, (#1)}}{{ и (#1))}}
 
 \\DTMnewdatestyle{{monthyear}}{{%
     % ##1 = year, ##2 = month, ##3 = day
