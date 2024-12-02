@@ -211,7 +211,8 @@ def convert_images(text):
         caption_text = match.group(2)
         # Заменяем символы для создания метки
         label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
-        return (f'\\begin{{figure}}[H]\n'
+        # return (f'\\begin{{figure}}[H]\n'
+        return (f'\\begin{{figure}}[h!]\n'
                 f'    \\centering\n'
                 f'    \\includegraphics*[width=0.8\\linewidth]{{{
                     image_path}}}\n'
@@ -268,7 +269,8 @@ def markdown_to_latex_table(text):
             caption_text = lines[i]
 
             # Convert the Markdown table to a LaTeX table
-            latex_table.append(r'\begin{table}[H]')
+            # latex_table.append(r'\begin{table}[H]')
+            latex_table.append(r'\begin{table}[h!]')
             latex_table.append(r'    \centering')
             latex_table.append(
                 r'    \begin{tabularx}{0.9\textwidth}{|' + '|'.join(alignment) + r'|} \hline')
@@ -399,7 +401,7 @@ def create_latex_file(markdown_file):
 \\renewcommand{{\\cftsecleader}}{{\\cftdotfill{{\\cftdotsep}}}}
 
 \\newcommand{{\\chapter}}[1]{{%
-    \\newpage%
+    \\clearpage%
     \\begin{{center}}%
         \\phantomsection\\bfseries\\large\\scshape\\uppercase{{#1}}%
     \\end{{center}}%
