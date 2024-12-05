@@ -212,7 +212,7 @@ def convert_images(text):
         # Заменяем символы для создания метки
         label = 'fig:' + image_path.replace('/', '-').replace('.', '-')
         # return (f'\\begin{{figure}}[H]\n'
-        return (f'\\begin{{figure}}[h!]\n'
+        return (f'\\begin{{figure}}[ht!]\n'
                 f'    \\centering\n'
                 f'    \\includegraphics*[width=0.8\\linewidth]{{{
                     image_path}}}\n'
@@ -270,7 +270,7 @@ def markdown_to_latex_table(text):
 
             # Convert the Markdown table to a LaTeX table
             # latex_table.append(r'\begin{table}[H]')
-            latex_table.append(r'\begin{table}[h!]')
+            latex_table.append(r'\begin{table}[ht!]')
             latex_table.append(r'    \centering')
             latex_table.append(
                 r'    \begin{tabularx}{0.9\textwidth}{|' + '|'.join(alignment) + r'|} \hline')
