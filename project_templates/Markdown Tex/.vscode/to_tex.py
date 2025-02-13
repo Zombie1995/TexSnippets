@@ -39,7 +39,7 @@ def convert_refs(text):
         # Создаем метку для cref
         label = 'eq:' + \
             re.sub(r'\s+', '-', equation_content.replace('\\', '-')
-                   ).replace('$$;$$', ',eq:')
+                   ).replace(',', '-').replace('$$;$$', ',eq:')
         return f'\\cref{{{label}}}'
 
     # Заменяем все найденные комментарии на LaTeX команды \ref
@@ -141,8 +141,8 @@ def convert_latex_math(text):
     def equation_replacement(match):
         equation_content = match.group(1)
         # Заменяем пробелы на дефисы в содержимом уравнения
-        cleaned_equation = re.sub(
-            r'\s+', '-', equation_content.replace('\\', '-'))
+        cleaned_equation = re.sub(r'\s+', '-', equation_content.replace('\\', '-')
+                                  ).replace(',', '-')
         return f'\\[{equation_content}\\label{{eq:{cleaned_equation}}}\\]'
 
     text = re.sub(r'\$\$(.*?)\$\$', equation_replacement,
