@@ -4,7 +4,7 @@ import os
 
 def convert_refs(text):
     # Регулярное выражение для поиска комментариев с изображениями
-    img_pattern = r'<!--\s*(img\/.*\.(?:png|jpg|jpeg|gif))\s*-->'
+    img_pattern = r'<!--\s*!\[\]\((img\/.*?\.(?:png|jpg|jpeg|gif))\)\s*-->'
 
     # Регулярное выражение для поиска комментариев с таблицами
     table_pattern = r'<!--\s*\|.*?\|.*?-->'
@@ -18,7 +18,7 @@ def convert_refs(text):
         # Создаем метку для изображения
         label = 'fig:' + \
             image_path.replace('/', '-').replace('.',
-                                                 '-').replace(';', ',fig:')
+                                                 '-').replace(');![](', ',fig:')
         return f'\\cref{{{label}}}'
 
     # Замена комментариев на LaTeX команды для таблиц
