@@ -1,5 +1,69 @@
 import re
 import os
+from PIL import Image
+
+
+def define_applications(text):
+    # Регулярное выражение для поиска изображений в формате ![](path/to/image)
+    image_pattern = re.compile(r'!\[\]\((.*?)\)')
+
+    # Список для хранения строк с изображениями и следующих трех строк, которые нужно перенести
+    lines_to_move = []
+    # Список индексов строк, которые нужно удалить
+    indices_to_remove = []
+
+    # Разделяем текст на строки
+    lines = text.split('\n')
+
+    # Обрабатываем каждую строку
+    i = 0
+    while i < len(lines):
+        match = image_pattern.search(lines[i])
+        if match:
+            image_path = match.group(1)
+            # Проверяем, существует ли файл
+            if os.path.exists(image_path):
+                # Получаем размеры изображения
+                with Image.open(image_path) as img:
+                    width, height = img.size
+                    # Если высота больше ширины, добавляем строку и следующие три строки в список для переноса
+                    if height >= 9 / 16 * width:
+                        lines_to_move.append(lines[i])
+                        indices_to_remove.extend([i])
+                        # Добавляем следующие три строки, если они существуют
+                        if i + 1 < len(lines):
+                            lines_to_move.append(lines[i + 1])
+                            indices_to_remove.extend([i + 1])
+                        if i + 2 < len(lines):
+                            lines_to_move.append(lines[i + 2])
+                            indices_to_remove.extend([i + 2])
+                        if i + 3 < len(lines):
+                            lines_to_move.append(lines[i + 3])
+                            indices_to_remove.extend([i + 3])
+                        i += 4  # Пропускаем следующие три строки
+                        continue
+            i += 1
+        else:
+            i += 1
+
+    # Создаем новый список строк, исключая строки по индексам
+    new_lines = []
+    for i in range(len(lines)):
+        if i not in indices_to_remove:
+            new_lines.append(lines[i])
+
+    # Проверяем наличие заголовка "# Приложения" в тексте
+    has_applications_header = "# Приложения" in text
+
+    # Добавляем перенесенные строки в конец текста
+    if has_applications_header:
+        new_markdown_text = '\n'.join(
+            new_lines) + '\n\n' + '\n'.join(lines_to_move)
+    else:
+        new_markdown_text = '\n'.join(
+            new_lines) + '\n\n# Приложения\n\n' + '\n'.join(lines_to_move)
+
+    return new_markdown_text
 
 
 def convert_refs(text):
@@ -312,6 +376,7 @@ def create_latex_file(markdown_file):
     formatted_file_content, title = extract_title_from_comment(file_content)
     formatted_file_content, author = extract_author_from_comment(
         formatted_file_content)
+    formatted_file_content = define_applications(formatted_file_content)
     formatted_file_content = convert_refs(
         formatted_file_content)
     formatted_file_content = convert_code_blocks(
