@@ -1,0 +1,172 @@
+% !TEX program = xelatex
+\documentclass[a4paper]{article}
+\usepackage[fontsize=14pt]{fontsize}
+\usepackage[english, russian]{babel}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{accsupp}
+\usepackage{listings}
+\usepackage{float}
+\usepackage[unicode, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{bookmark}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage[labelsep=endash]{caption}
+\usepackage{datetime2}
+\usepackage{cleveref}
+% Uncomment below to enable text style math
+% \usepackage{mathastext}
+
+\crefformat{figure}{(см. рис. #2#1#3)}
+\crefmultiformat{figure}{(см. рис. #2#1#3}{ и #1)}{, #1}{ и #1)}
+\crefformat{table}{(см. табл. #2#1#3)}
+\crefmultiformat{table}{(см. табл. #2#1#3}{ и #1)}{, #1}{ и #1)}
+\crefformat{equation}{(см. (#2#1#3))}
+\crefmultiformat{equation}{(см. (#2#1#3)}{ и (#1))}{, (#1)}{ и (#1))}
+
+\DTMnewdatestyle{monthyear}{%
+    % ##1 = year, ##2 = month, ##3 = day
+    \renewcommand*{\DTMdisplaydate}[4]{\DTMenglishmonthname{##2} ##1}%
+    \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+
+\addto\captionsrussian{\renewcommand{\figurename}{Рисунок}}
+
+\setlength\parindent{15mm}
+
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{0pt}
+\setlength{\cftsubsubsecindent}{0pt}
+
+\newcommand{\HY}{\hyphenpenalty=25\exhyphenpenalty=25}
+\newcolumntype{Z}{>{\HY\arraybackslash\hspace{0pt}}X}
+\newcolumntype{M}{>{\HY\RaggedRight\arraybackslash\hspace{0pt}}c}
+\newcolumntype{L}{>{\HY\RaggedRight\arraybackslash\hspace{0pt}}l}
+
+\titleformat{\section}{\large\scshape\color{darkgray}}{\hspace*{-4.5em}\rule[-1.35mm]{4.5em}{1.25em}{\color{white}\hspace{-1cm}\large\scshape\thesection\hspace{5pt}}}{22pt}{}
+% \titleformat{\section}{\large\scshape}{\thesection}{10pt}{}
+\titleformat{\subsection}{\large\scshape\color{gray}}{\hspace*{-4.5em}\rule[-1.35mm]{4.5em}{1.25em}{\color{white}\hspace{-1cm}\large\scshape\thesubsection\hspace{5pt}}}{10pt}{}
+% \titleformat{\subsection}{\large\scshape}{\thesubsection}{10pt}{}
+\titleformat{\subsubsection}{\large\scshape\color{gray}}{\thesubsubsection}{10pt}{}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\newcommand{\chapter}[1]{%
+    \clearpage%
+    \begin{center}%
+        \phantomsection\bfseries\large\scshape\uppercase{#1}%
+    \end{center}%
+    \addcontentsline{toc}{section}{#1}%
+}
+
+\AtBeginDocument{%
+    \renewcommand{\cfttoctitlefont}{}%
+    \renewcommand\contentsname{%
+        \begin{center}%
+            \bfseries\large\scshape\color{black}\uppercase{Содержание}%
+        \end{center}%
+        \vspace{-0.5cm}%
+    }%
+}
+
+% Uncomment this two to make every row stretch
+% \hyphenpenalty=10000
+% \tolerance=1
+\hbadness=10000
+\emergencystretch=\maxdimen
+
+\renewcommand{\cftsecfont}{\fontspec{Times New Roman}}
+\renewcommand{\cftsubsecfont}{\fontspec{Times New Roman}}
+\renewcommand{\cftsubsubsecfont}{\fontspec{Times New Roman}}
+
+\setmainfont{Times New Roman}
+\linespread{1.5}
+
+\DeclareSymbolFont{letters}{\encodingdefault}{\rmdefault}{m}{it}
+
+\pgfplotsset{compat=1.7}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\newcommand{\noncopynumber}[1]{%
+    \BeginAccSupp{method=escape,ActualText={}}%
+    #1%
+    \EndAccSupp{}%
+}
+\lstdefinestyle{mycodestyle}{
+    frame=single,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numbers=left,
+    numberstyle=\color{codegray},
+    breaklines=true,
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    columns=fullflexible,
+    numberstyle=\noncopynumber,
+    language=C++,
+    alsolanguage=PHP
+}
+\lstset{style=mycodestyle}
+% \begin{lstlisting}
+% #include <iostream>
+
+% int main() {
+%     std::cout << "Hello, world!" << std::endl;
+%     return 0;
+% }
+% \end{lstlisting}
+
+\geometry{left=30mm}
+\geometry{right=15mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+
+\graphicspath{{img/}}
+
+\def\[#1\]{\begin{equation}\begin{gathered}#1\end{gathered}\end{equation}}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    \par
+    {\scshape ITMO University\par}
+    \vspace{80mm}
+    {\Large\bfseries\scshape template_title\par}
+    \vspace{20mm}
+    {\scshape template_author\par}
+    \vfill
+    {\scshape\DTMsetdatestyle{monthyear}\today\par}
+\end{titlepage}
+
+\setcounter{page}{2}
+\tableofcontents
+\newpage
+
+template_content
+
+\end{document}
