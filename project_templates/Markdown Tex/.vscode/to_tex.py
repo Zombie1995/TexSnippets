@@ -5,7 +5,7 @@ from PIL import Image
 
 def define_applications(text):
     # Регулярное выражение для поиска изображений в формате ![](path/to/image)
-    image_pattern = re.compile(r'!\[\]\((.*?)\)')
+    image_pattern = re.compile(r'!\[\]\((.*?)\)$')
 
     # Список для хранения строк с изображениями и следующих трех строк, которые нужно перенести
     lines_to_move = []
