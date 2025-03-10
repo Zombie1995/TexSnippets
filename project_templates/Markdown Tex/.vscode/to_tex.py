@@ -56,12 +56,14 @@ def define_applications(text):
     has_applications_header = "# Приложения" in text
 
     # Добавляем перенесенные строки в конец текста
-    if has_applications_header:
-        new_markdown_text = '\n'.join(
-            new_lines) + '\n\n' + '\n'.join(lines_to_move)
-    else:
-        new_markdown_text = '\n'.join(
-            new_lines) + '\n\n# Приложения\n\n' + '\n'.join(lines_to_move)
+    new_markdown_text = '\n'.join(new_lines)
+    if len(lines_to_move) > 0:
+        if has_applications_header:
+            new_markdown_text = new_markdown_text + \
+                '\n\n' + '\n'.join(lines_to_move)
+        else:
+            new_markdown_text = new_markdown_text + \
+                '\n\n# Приложения\n\n' + '\n'.join(lines_to_move)
 
     return new_markdown_text
 
