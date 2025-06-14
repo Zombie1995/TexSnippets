@@ -315,6 +315,11 @@ snippet nl "New line" A
 ``
 endsnippet
 
+context math(context)
+snippet inf "Infinity" A
+\infty
+endsnippet
+
 ## VARS
 
 context math(context)
